@@ -513,6 +513,7 @@
     - Scarves
     - Carpets
     - Bedsheets
+    - NFWallets # Frontier
   - type: EmagLatheRecipes
     emagStaticPacks:
     - ClothingCentComm
