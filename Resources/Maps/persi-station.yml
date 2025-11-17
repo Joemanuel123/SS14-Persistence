@@ -4,8 +4,8 @@ meta:
   engineVersion: 267.3.0
   forkId: ""
   forkVersion: ""
-  time: 11/16/2025 04:32:08
-  entityCount: 6284
+  time: 11/16/2025 23:07:50
+  entityCount: 6289
 maps:
 - 1
 grids:
@@ -3337,7 +3337,7 @@ entities:
     - type: Wires
       wireSeed: 263230952
     - type: Door
-      secondsUntilStateChange: -42457.637
+      secondsUntilStateChange: -42995.203
       state: Opening
     - type: DeviceLinkSource
       lastSignals:
@@ -4428,7 +4428,7 @@ entities:
     - type: Wires
       wireSeed: 1031210875
     - type: Door
-      secondsUntilStateChange: -83215.46
+      secondsUntilStateChange: -83753.02
       state: Opening
     - type: DeviceNetwork
       address: 2415-3BD1
@@ -34764,15 +34764,7 @@ entities:
     - type: DeviceNetwork
       transmitFrequency: 1261
       receiveFrequency: 1262
-- proto: CryogenicSleepUnit
-  entities:
-  - uid: 2445
-    components:
-    - type: Transform
-      rot: 3.141592653589793 rad
-      pos: 6.5,18.5
-      parent: 2
-- proto: CryogenicSleepUnitSpawner
+- proto: CryogenicSleepUnitSpawnerLateJoin
   entities:
   - uid: 2444
     components:
@@ -34780,8 +34772,12 @@ entities:
       rot: 3.141592653589793 rad
       pos: 6.5,16.5
       parent: 2
-- proto: CryogenicSleepUnitSpawnerLateJoin
-  entities:
+  - uid: 2445
+    components:
+    - type: Transform
+      rot: 3.141592653589793 rad
+      pos: 6.5,18.5
+      parent: 2
   - uid: 2446
     components:
     - type: Transform
@@ -42457,7 +42453,7 @@ entities:
         Slash: 0
         Piercing: 0
     - type: Door
-      secondsUntilStateChange: -3134.286
+      secondsUntilStateChange: -3671.852
       state: Closing
     - type: DeviceNetwork
       deviceLists:
@@ -42809,6 +42805,22 @@ entities:
     components:
     - type: Transform
       pos: 7.5,24.5
+      parent: 2
+    - type: Damageable
+      damageDictCopy:
+        Heat: 0
+        Shock: 0
+        Structural: 0
+        Blunt: 0
+        Slash: 0
+        Piercing: 0
+    - type: Fixtures
+      fixtures: {}
+  - uid: 6288
+    components:
+    - type: Transform
+      rot: 3.141592653589793 rad
+      pos: -17.5,13.5
       parent: 2
     - type: Damageable
       damageDictCopy:
@@ -69676,6 +69688,26 @@ entities:
     - type: Transform
       pos: -19.5,13.5
       parent: 2
+- proto: SpawnPointLatejoin
+  entities:
+  - uid: 2819
+    components:
+    - type: Transform
+      rot: 3.141592653589793 rad
+      pos: 7.5,18.5
+      parent: 2
+  - uid: 6286
+    components:
+    - type: Transform
+      rot: 3.141592653589793 rad
+      pos: 7.5,17.5
+      parent: 2
+  - uid: 6287
+    components:
+    - type: Transform
+      rot: 3.141592653589793 rad
+      pos: 7.5,16.5
+      parent: 2
 - proto: SpawnPointObserver
   entities:
   - uid: 5756
@@ -86866,6 +86898,18 @@ entities:
     components:
     - type: Transform
       pos: 17.5,-8.5
+      parent: 2
+    - type: Damageable
+      damageDictCopy:
+        Heat: 0
+        Shock: 0
+        Blunt: 0
+        Slash: 0
+        Piercing: 0
+  - uid: 6289
+    components:
+    - type: Transform
+      pos: -18.5,18.5
       parent: 2
     - type: Damageable
       damageDictCopy:
