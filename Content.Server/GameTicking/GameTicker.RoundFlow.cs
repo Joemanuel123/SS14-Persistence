@@ -59,6 +59,8 @@ namespace Content.Server.GameTicking
 
         private string? _replayRoundText;
 
+        private TimeSpan _timeToNextSave = TimeSpan.Zero;
+
         [ViewVariables]
         public GameRunLevel RunLevel
         {
@@ -91,6 +93,38 @@ namespace Content.Server.GameTicking
         /// <remarks>
         ///     Must be called before the runlevel is set to InRound.
         /// </remarks>
+        ///
+        private void SaveMaps()
+        {
+            bool finalSaveFound = false;
+            var initial = new ResPath("current");
+            ResPath path = initial;
+            int indof = 0;
+            if (_resourceManager.UserData.Exists(initial.ToRootedPath()))
+            {
+                while (!finalSaveFound)
+                {
+                    indof++;
+                    if (path == null) break;
+                    var next = new ResPath($"current{indof}");
+                    if (_resourceManager.UserData.Exists(next.ToRootedPath()))
+                    {
+                        path = next;
+                    }
+                    else
+                    {
+                        finalSaveFound = true;
+                        path = new ResPath($"current{indof+1}");
+                    }
+                }
+            }
+            var start = _gameTiming.CurTime;
+            bool save_stat = _loader.TrySaveMap(DefaultMap, path);
+            var end = _gameTiming.CurTime;
+            var finaltime = start - end;
+            _adminLogger.Add(LogType.EventRan, LogImpact.Extreme, $"MAP SAVE STATUS: {save_stat} TIME TAKEN: {finaltime.TotalSeconds}");
+        }
+
         private void LoadMaps()
         {
             if (_map.MapExists(DefaultMap))
@@ -100,8 +134,8 @@ namespace Content.Server.GameTicking
             ResPath path = initial;
             int indof = 0;
             if (_resourceManager.UserData.Exists(initial.ToRootedPath()))
-            { 
-                while(!finalSaveFound)
+            {
+                while (!finalSaveFound)
                 {
                     indof++;
                     if (path == null) break;
@@ -122,12 +156,12 @@ namespace Content.Server.GameTicking
                     DefaultMap = entity.Value.Comp.MapId;
 
                 }
-                
+
                 var end = _gameTiming.CurTime;
                 var finaltime = start - end;
                 _adminLogger.Add(LogType.EventRan, LogImpact.Extreme, $"MAP LOAD STATUS: {save_stat} TIME TAKEN: {finaltime.TotalSeconds}");
                 if (save_stat) return;
-                
+
             }
 
 
@@ -187,9 +221,9 @@ namespace Content.Server.GameTicking
 
                 if (i == 0)
                     DefaultMap = mapId;
-                    var ent = _map.GetMap(mapId);
-                    EnsureComp<MoneyAccountsComponent>(ent);
-                    EnsureComp<CrewMetaRecordsComponent>(ent);
+                var ent = _map.GetMap(mapId);
+                EnsureComp<MoneyAccountsComponent>(ent);
+                EnsureComp<CrewMetaRecordsComponent>(ent);
             }
         }
 
@@ -809,12 +843,46 @@ namespace Content.Server.GameTicking
 
             return true;
         }
-
+        int warnings = 3;
         private void UpdateRoundFlow(float frameTime)
         {
             if (RunLevel == GameRunLevel.InRound)
             {
                 RoundLengthMetric.Inc(frameTime);
+
+                _timeToNextSave += TimeSpan.FromSeconds(frameTime);
+                if(warnings==3)
+                {
+                    if (_timeToNextSave > TimeSpan.FromMinutes(_cfg.GetCVar(CCVars.AutoSaveInterval)-5))
+                    {
+                        warnings--;
+                        SendServerMessage("The game will automatically save in 5 minutes.");
+                    }
+                }
+                else if(warnings==2)
+                {
+                    if (_timeToNextSave > TimeSpan.FromMinutes(_cfg.GetCVar(CCVars.AutoSaveInterval) - 1))
+                    {
+                        warnings--;
+                        SendServerMessage("The game will automatically save in 1 minute.");
+                    }
+                }
+                else if(warnings==1)
+                {
+                    if (_timeToNextSave > TimeSpan.FromMinutes(_cfg.GetCVar(CCVars.AutoSaveInterval))-TimeSpan.FromSeconds(3))
+                    {
+                        warnings--;
+                        SendServerMessage("The game is saving..");
+                    }
+                }
+                if (_timeToNextSave > TimeSpan.FromMinutes(_cfg.GetCVar(CCVars.AutoSaveInterval)))
+                {
+                    _timeToNextSave = TimeSpan.Zero;
+                    SaveMaps();
+                    SendServerMessage("Game Saved.");
+                }
+
+
             }
 
             if (_roundStartTime == TimeSpan.Zero ||
