@@ -103,7 +103,7 @@
   icon:
     sprite: Structures/Power/Generation/teg.rsi
     state: teg
-  product: EngineTEGFlatPacks
+  product: EngineTegFlatPacks
   cost: 8000
   category: cargoproduct-category-name-engineering
   group: market
