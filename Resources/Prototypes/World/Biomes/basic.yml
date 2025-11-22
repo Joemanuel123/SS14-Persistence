@@ -1,4 +1,4 @@
-- type: spaceBiome
+﻿ype: spaceBiome
   id: AsteroidsStandard
   priority: 0 # This probably shouldn't get selected.
   noiseRanges: {}
@@ -26,7 +26,7 @@
         - id: IronrockSalvageMedium
           prob: 0.3
         - id: IronrockSalvageLarge
-          prob: 1
+          prob: 0.1
         - id: IronrockSalvageHuge
           prob: 0.05
         - id: ChromiteDebrisSmall
