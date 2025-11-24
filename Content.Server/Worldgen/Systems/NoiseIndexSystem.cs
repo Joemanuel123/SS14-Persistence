@@ -1,6 +1,8 @@
 ﻿using System.Numerics;
+using Content.Server.GameTicking;
 using Content.Server.Worldgen.Components;
 using Content.Server.Worldgen.Prototypes;
+using Robust.Server.GameObjects;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
 
@@ -14,6 +16,9 @@ public sealed class NoiseIndexSystem : EntitySystem
     [Dependency] private readonly IPrototypeManager _prototype = default!;
     [Dependency] private readonly IRobustRandom _random = default!;
 
+    [Dependency] private readonly GameTicker _gameTicker = default!;
+    [Dependency] private readonly MapSystem _mapManager = default!;
+
     /// <summary>
     ///     Gets a particular noise channel from the index on the given entity.
     /// </summary>
@@ -22,11 +27,13 @@ public sealed class NoiseIndexSystem : EntitySystem
     /// <returns>An initialized noise generator</returns>
     public NoiseGenerator Get(EntityUid holder, string protoId)
     {
+        var worldGenSettings = EnsureComp<PersistenceWorldGenComponent>(_mapManager.GetMap(_gameTicker.DefaultMap));
+
         var idx = EnsureComp<NoiseIndexComponent>(holder);
         if (idx.Generators.TryGetValue(protoId, out var generator))
             return generator;
         var proto = _prototype.Index<NoiseChannelPrototype>(protoId);
-        var gen = new NoiseGenerator(proto, _random.Next());
+        var gen = new NoiseGenerator(proto, worldGenSettings != null ? worldGenSettings.Seed : _random.Next());
         idx.Generators[protoId] = gen;
         return gen;
     }

@@ -28,7 +28,7 @@ public sealed class BiomeSelectionSystem : BaseWorldSystem
         foreach (var biomeId in component.Biomes)
         {
             var biome = _proto.Index<BiomePrototype>(biomeId);
-            if (!CheckBiomeValidity(args.Chunk, biome, coords))
+            if (!CheckBiomeValidity(uid, biome, coords))
                 continue;
 
             biome.Apply(args.Chunk, _ser, EntityManager);
@@ -50,11 +50,11 @@ public sealed class BiomeSelectionSystem : BaseWorldSystem
         component.Biomes = sorted; // my hopes and dreams rely on this being pre-sorted by priority.
     }
 
-    private bool CheckBiomeValidity(EntityUid chunk, BiomePrototype biome, Vector2i coords)
+    private bool CheckBiomeValidity(EntityUid uid, BiomePrototype biome, Vector2i coords)
     {
         foreach (var (noise, ranges) in biome.NoiseRanges)
         {
-            var value = _noiseIdx.Evaluate(chunk, noise, coords);
+            var value = _noiseIdx.Evaluate(uid, noise, coords);
             var anyValid = false;
             foreach (var range in ranges)
             {

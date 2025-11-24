@@ -1,0 +1,102 @@
+- type: spaceBiome
+  id: IronZone
+  priority: 1 # This probably shouldn't get selected.
+  noiseRanges:
+    BiomeBase:
+      - 1,4
+  chunkComponents:
+    - type: DebrisFeaturePlacerController
+      densityNoiseChannel: Density
+    - type: SimpleDebrisSelector
+      debrisTable:
+        - id: IronrockDebrisSmall
+        - id: IronrockDebrisMedium
+        - id: IronrockDebrisLarge
+          prob: 0.6
+        - id: IronrockDebrisLarger
+          prob: 0.4
+        - id: IronrockSalvageSmall
+          prob: 0.6
+        - id: IronrockSalvageMedium
+          prob: 0.5
+        - id: IronrockSalvageLarge
+          prob: 0.3
+        - id: IronrockSalvageHuge
+          prob: 0.1
+
+    - type: NoiseRangeCarver
+      ranges:
+        - 0.4, 0.6
+      noiseChannel: Carver
+
+- type: spaceBiome
+  id: ChromiteZone
+  priority: 1 # This probably shouldn't get selected.
+  noiseRanges:
+    BiomeBase:
+      - 4,5
+  chunkComponents:
+    - type: DebrisFeaturePlacerController
+      densityNoiseChannel: Density
+    - type: SimpleDebrisSelector
+      debrisTable:
+        - id: ChromiteDebrisSmall
+        - id: ChromiteDebrisMedium
+          prob: 0.75
+        - id: ChromiteDebrisLarge
+          prob: 0.4
+        - id: ChromiteDebrisHuge
+          prob: 0.13
+
+    - type: NoiseRangeCarver
+      ranges:
+        - 0.4, 0.6
+      noiseChannel: Carver
+
+- type: spaceBiome
+  id: VolcanicZone
+  priority: 2 # This probably shouldn't get selected.
+  noiseRanges:
+    BiomeBase:
+      - 5,7
+  chunkComponents:
+    - type: DebrisFeaturePlacerController
+      densityNoiseChannel: Density
+    - type: SimpleDebrisSelector
+      debrisTable:
+        - id: VolcanicDebrisSmall
+        - id: VolcanicDebrisMedium
+          prob: 0.6
+        - id: VolcanicDebrisLarge
+          prob: 0.3
+        - id: VolcanicDebrisHuge
+          prob: 0.1
+
+    - type: NoiseRangeCarver
+      ranges:
+        - 0.4, 0.6
+      noiseChannel: Carver
+
+- type: spaceBiome
+  id: AndesiteZone
+  priority: 2 # This probably shouldn't get selected.
+  noiseRanges:
+    BiomeBase:
+      - 7,10
+  chunkComponents:
+    - type: DebrisFeaturePlacerController
+      densityNoiseChannel: Density
+    - type: SimpleDebrisSelector
+      debrisTable:
+        - id: AndesiteDebrisSmall
+        - id: AndesiteDebrisMedium
+          prob: 0.7
+        - id: AndesiteDebrisLarge
+          prob: 0.5
+        - id: AndesiteDebrisHuge
+          prob: 0.3
+
+    - type: NoiseRangeCarver
+      ranges:
+        - 0.4, 0.6
+      noiseChannel: Carver
