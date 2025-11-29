@@ -1,9 +1,18 @@
 - type: spaceBiome
+  priority: 0 # This probably shouldn't get selected.
+  id: BaseBiome
+  noiseRanges:
+    BiomeBaseMask:
+      - 0.5,1
+
+- type: spaceBiome
+  parent: BaseBiome
   id: IronZone
-  priority: 1 # This probably shouldn't get selected.
+  priority: 1
   noiseRanges:
     BiomeBase:
-      - 1,4
+      - 0,4
+
   chunkComponents:
     - type: DebrisFeaturePlacerController
       densityNoiseChannel: Density
@@ -30,11 +39,13 @@
       noiseChannel: Carver
 
 - type: spaceBiome
+  parent: BaseBiome
   id: ChromiteZone
-  priority: 1 # This probably shouldn't get selected.
+  priority: 1
   noiseRanges:
     BiomeBase:
-      - 4,5
+      - 4,6
+    
   chunkComponents:
     - type: DebrisFeaturePlacerController
       densityNoiseChannel: Density
@@ -54,11 +65,15 @@
       noiseChannel: Carver
 
 - type: spaceBiome
+  parent: BaseBiome
   id: VolcanicZone
-  priority: 2 # This probably shouldn't get selected.
+  priority: 2
   noiseRanges:
     BiomeBase:
-      - 5,7
+      - 6,10
+    
+    Temperature:
+      - 0.7,1
   chunkComponents:
     - type: DebrisFeaturePlacerController
       densityNoiseChannel: Density
@@ -78,11 +93,13 @@
       noiseChannel: Carver
 
 - type: spaceBiome
+  parent: BaseBiome
   id: AndesiteZone
-  priority: 2 # This probably shouldn't get selected.
+  priority: 1
   noiseRanges:
     BiomeBase:
-      - 7,10
+      - 6,10
+    
   chunkComponents:
     - type: DebrisFeaturePlacerController
       densityNoiseChannel: Density

@@ -22,12 +22,32 @@ public sealed class BiomeSelectionSystem : BaseWorldSystem
         SubscribeLocalEvent<BiomeSelectionComponent, WorldChunkAddedEvent>(OnWorldChunkAdded);
     }
 
+    /// <summary>
+    /// Gets the biome prototype from its ID while inheriting parent's noise ranges.
+    /// </summary>
+    /// <param name="biomeId"></param>
+    /// <returns></returns>
+    private BiomePrototype GetBiomePrototype(string biomeId)
+    {
+        var biome = _proto.Index<BiomePrototype>(biomeId);
+
+        if (biome.Parents != null)
+            foreach (var parentBiomeID in biome.Parents)
+            {
+                var parentBiome = GetBiomePrototype(parentBiomeID);
+                foreach (var noiseRange in parentBiome.NoiseRanges)
+                    biome.NoiseRanges[noiseRange.Key] = noiseRange.Value;
+            }
+        return biome;
+    }
+
     private void OnWorldChunkAdded(EntityUid uid, BiomeSelectionComponent component, ref WorldChunkAddedEvent args)
     {
         var coords = args.Coords;
         foreach (var biomeId in component.Biomes)
         {
-            var biome = _proto.Index<BiomePrototype>(biomeId);
+            var biome = GetBiomePrototype(biomeId);
+
             if (!CheckBiomeValidity(uid, biome, coords))
                 continue;
 
