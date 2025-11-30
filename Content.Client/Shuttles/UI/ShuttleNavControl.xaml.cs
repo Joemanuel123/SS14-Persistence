@@ -229,14 +229,13 @@ public sealed partial class ShuttleNavControl : BaseShuttleControl
             {
                 var gridBounds = grid.Comp.LocalAABB;
 
-                var gridCentre = Vector2.Transform(gridBody.LocalCenter, curGridToView);
-
-                var gridDistance = (gridBody.LocalCenter - xform.LocalPosition).Length();
+                var gridCentreInView = Vector2.Transform(gridBody.LocalCenter, curGridToView);
+                var gridCenterInWorld = Vector2.Transform(gridBody.LocalCenter, curGridToWorld);
+                var gridDistance = (gridCenterInWorld - _transform.GetMapCoordinates(xform).Position).Length();
                 var labelText = Loc.GetString("shuttle-console-iff-label", ("name", labelName),
                     ("distance", $"{gridDistance:0.0}"));
 
-                var mapCoords = _transform.GetWorldPosition(gUid);
-                var coordsText = $"({mapCoords.X:0.0}, {mapCoords.Y:0.0})";
+                var coordsText = $"({gridCenterInWorld.X:0.0}, {gridCenterInWorld.Y:0.0})";
 
                 // yes 1.0 scale is intended here.
                 var labelDimensions = handle.GetDimensions(Font, labelText, 1f);
@@ -246,7 +245,7 @@ public sealed partial class ShuttleNavControl : BaseShuttleControl
                 var yOffset = Math.Max(gridBounds.Height, gridBounds.Width) * MinimapScale / 1.8f;
 
                 // The actual position in the UI.
-                var gridScaledPosition = gridCentre - new Vector2(0, -yOffset);
+                var gridScaledPosition = gridCentreInView - new Vector2(0, -yOffset);
 
                 // Normalize the grid position if it exceeds the viewport bounds
                 // normalizing it instead of clamping it preserves the direction of the vector and prevents corner-hugging
