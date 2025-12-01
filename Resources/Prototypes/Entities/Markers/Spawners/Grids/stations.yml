@@ -1,0 +1,17 @@
+- type: entity
+  parent: MarkerBase
+  id: TradeStationSpawnerMarker
+  name: Grid Spawner
+  suffix: Trade Station
+  components:
+  - type: Sprite
+    layers:
+    - state: pink
+    - sprite: Objects/Materials/Scrap/generic.rsi
+      state: metal-1
+  - type: GridSpawner
+    gridPath: Maps/Shuttles/trading_outpost.yml
+    stationGrid: True
+    addComponents:
+      - type: ProtectedGrid
+      - type: TradeStation
