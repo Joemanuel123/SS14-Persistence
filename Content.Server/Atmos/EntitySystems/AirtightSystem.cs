@@ -53,7 +53,7 @@ namespace Content.Server.Atmos.EntitySystems
                 SetAirblocked(airtight, false, xform);
         }
 
-        private void OnAirtightPositionChanged(EntityUid uid, AirtightComponent airtight, ref AnchorStateChangedEvent args) // here
+        private void OnAirtightPositionChanged(EntityUid uid, AirtightComponent airtight, ref AnchorStateChangedEvent args)
         {
             var xform = args.Transform;
 
