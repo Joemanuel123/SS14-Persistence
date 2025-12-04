@@ -83,8 +83,6 @@ public sealed partial class PaperComponent : Component
     public enum PaperStatus : byte
     {
         Blank,
-        Written,
-        Unpaid,
-        Paid
+        Written
     }
 }
