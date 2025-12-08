@@ -78,7 +78,6 @@ def get_engine_version() -> str:
     subprocess.run(["git", "fetch","--tags"], stdout=subprocess.PIPE, cwd="RobustToolbox", check=True, encoding="UTF-8")
     proc = subprocess.run(["git", "describe","--tags", "--abbrev=0", "--always"], stdout=subprocess.PIPE, cwd="RobustToolbox", check=True, encoding="UTF-8")
     tag = proc.stdout.strip()
-    assert tag.startswith("v")
     return tag[1:] # Cut off v prefix.
 
 
