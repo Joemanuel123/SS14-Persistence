@@ -1328,7 +1328,7 @@
   canBuildInImpassable: false
   conditions:
     - !type:TileNotBlocked
-
+# Persistence14 stuff
 - type: construction
   id: Morgue
   graph: MorgueGraph
@@ -1360,6 +1360,19 @@
   targetNode: bar_sign
   category: construction-category-furniture
   description: A LED sign sure to catch the attention of any wayward spacers.
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canBuildInImpassable: true
+  conditions:
+    - !type:WallmountCondition
+
+- type: construction
+  id: DefibrillatorCabinetOpen
+  graph: DefibrillatorCabinetGraph
+  startNode: start
+  targetNode: defibrillator_cabinet
+  category: construction-category-furniture
+  description: A small wall mounted cabinet designed to hold a defibrillator.
   objectType: Structure
   placementMode: SnapgridCenter
   canBuildInImpassable: true
