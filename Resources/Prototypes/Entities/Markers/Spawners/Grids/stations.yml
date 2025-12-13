@@ -14,7 +14,8 @@
     stationGrid: True
     addComponents:
       - type: ProtectedGrid
-      - type: TradeStation        
+      - type: TradeStation
+      - type: StationCargoBountyDatabase
 
 - type: entity
   parent: MarkerBase
@@ -35,5 +36,9 @@
       - type: TradeStation
         markets:
         - syndicatemarket
+      - type: StationCargoBountyDatabase
+        groups:
+          ServiceBounty : 3
+          StationBounty : 1
         
 

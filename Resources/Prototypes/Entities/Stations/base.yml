@@ -59,6 +59,7 @@
           addComponents:
             - type: ProtectedGrid
             - type: TradeStation
+            - type: StationCargoBountyDatabase
           paths:
             - /Maps/Shuttles/trading_outpost.yml
         # Spawn last

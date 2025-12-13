@@ -319,7 +319,7 @@ namespace Content.Client.Cargo.UI
                 TaxLabel.Text = $"{_tax}%";
             }
 
-                PossibleTrades.Clear();
+            PossibleTrades.Clear();
             PossibleTrades.AddItem("None", 0);
             foreach (var kv in possibleTrades)
             {

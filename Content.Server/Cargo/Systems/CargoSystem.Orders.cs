@@ -179,6 +179,14 @@ namespace Content.Server.Cargo.Systems
         #region Interface
 
 
+        private void OnSelectTrade(EntityUid uid, CargoBountyConsoleComponent component, CargoConsoleSelectTradeMessage args)
+        {
+            if (args.Actor is not { Valid: true } player)
+                return;
+            component.SelectedTradeGrid = args.TradeUID;
+            UiUpdate(uid, component);
+        }
+
         private void OnSelectTrade(EntityUid uid, CargoOrderConsoleComponent component, CargoConsoleSelectTradeMessage args)
         {
             if (args.Actor is not { Valid: true } player)
@@ -491,7 +499,7 @@ namespace Content.Server.Cargo.Systems
             }
         }
 
-        private void GetAllTradeStations(ref Dictionary<int,string> ents, EntityUid owningStation, out int ownedTradeStation)
+        private void GetAllTradeStations(ref Dictionary<int,string> ents, EntityUid? owningStation, out int ownedTradeStation)
         {
             ownedTradeStation = 0;
             var query = EntityQueryEnumerator<TradeStationComponent>();
@@ -499,7 +507,7 @@ namespace Content.Server.Cargo.Systems
             {
                 var station = _station.GetOwningStation(uid);
                 int? stationUID = null;
-                if (station == owningStation) ownedTradeStation = comp.UID;
+                if (owningStation != null && station == owningStation) ownedTradeStation = comp.UID;
                 if(TryComp<StationDataComponent>(station, out var sD) && sD != null)
                 {
                     stationUID = sD.UID;

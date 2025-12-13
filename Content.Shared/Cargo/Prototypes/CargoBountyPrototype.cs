@@ -1,4 +1,4 @@
-﻿using Content.Shared.Whitelist;
+using Content.Shared.Whitelist;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Serialization;
 using Robust.Shared.Utility;
@@ -34,6 +34,8 @@ public sealed partial class CargoBountyPrototype : IPrototype
     /// </summary>
     [DataField(required: true)]
     public List<CargoBountyItemEntry> Entries = new();
+
+
 
     /// <summary>
     /// A prefix appended to the beginning of a bounty's ID.

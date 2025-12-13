@@ -1,3 +1,4 @@
+using Content.Shared.Cargo.Prototypes;
 using Robust.Shared.Audio;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Serialization;
@@ -56,20 +57,26 @@ public sealed partial class CargoBountyConsoleComponent : Component
     /// </summary>
     [DataField]
     public TimeSpan DenySoundDelay = TimeSpan.FromSeconds(2);
+
+    [DataField]
+    public int SelectedTradeGrid = 0;
 }
 
 [NetSerializable, Serializable]
 public sealed class CargoBountyConsoleState : BoundUserInterfaceState
 {
-    public List<CargoBountyData> Bounties;
+    public Dictionary<ProtoId<CargoBountyGroupPrototype>, List<CargoBountyData>> Bounties;
     public List<CargoBountyHistoryData> History;
     public TimeSpan UntilNextSkip;
-
-    public CargoBountyConsoleState(List<CargoBountyData> bounties, List<CargoBountyHistoryData> history, TimeSpan untilNextSkip)
+    public Dictionary<int, string> PossibleTrades;
+    public int? SelectedTrade;
+    public CargoBountyConsoleState(Dictionary<ProtoId<CargoBountyGroupPrototype>, List<CargoBountyData>> bounties, List<CargoBountyHistoryData> history, TimeSpan untilNextSkip, Dictionary<int, string> possibletrades, int? selectedTrade)
     {
         Bounties = bounties;
         History = history;
         UntilNextSkip = untilNextSkip;
+        PossibleTrades = possibletrades;
+        SelectedTrade = selectedTrade;
     }
 }
 
