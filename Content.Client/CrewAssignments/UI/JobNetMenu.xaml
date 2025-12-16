@@ -45,18 +45,20 @@
                 <Label Text="Completed:" Margin="10 10 10 0"
                          StyleClasses="LabelKeyText" />
                 <BoxContainer Name="CompletedObjectives" Orientation="Vertical" Access="Public">
-
+                
                 </BoxContainer>
             </BoxContainer>
 
         </ScrollContainer>
         <ScrollContainer VerticalExpand="True" HorizontalExpand="True" HScrollEnabled="False">
-            <BoxContainer Orientation="Vertical" Access="Public">
-                
+            <BoxContainer Orientation="Vertical">
+                <RichTextLabel Name="UnlockedNumberLabel" Access="Public"></RichTextLabel>
+                <Control MinHeight="20"></Control>
+                <BoxContainer Orientation="Vertical" Access="Public" Name="CodexContainer">
+                </BoxContainer>  
             </BoxContainer>
-
+            
         </ScrollContainer>
-
     </TabContainer>
     
 </DefaultWindow>

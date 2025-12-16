@@ -93,7 +93,7 @@ public sealed class AdminWorldObjectivesEui : BaseEui
                             entries.Remove(entry);
                             completedEntries.Add(entry);
                             entry.CompletedTime = DateTime.Now;
-                            _chat.DispatchGlobalAnnouncement($"A historic achievement has been completed! {entry.Title}");
+                            _chat.DispatchGlobalAnnouncement($"A historic achievement has been completed! {entry.Title}", "The Threshold");
                             break;
                         }
                     }

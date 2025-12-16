@@ -21,8 +21,9 @@ public sealed class JobNetUpdateState : BoundUserInterfaceState
     public TimeSpan? RemainingMinutes;
     public List<WorldObjectivesEntry> CurrentObjectives;
     public List<WorldObjectivesEntry> CompletedObjectives;
+    public List<CodexEntry> CodexEntries;
 
-    public JobNetUpdateState(Dictionary<int, string>? stations, string? assignmentName, int? wage, int selectedStation, TimeSpan? remainingMinutes, List<WorldObjectivesEntry> currentObjectives, List<WorldObjectivesEntry> completedObjectives)
+    public JobNetUpdateState(Dictionary<int, string>? stations, string? assignmentName, int? wage, int selectedStation, TimeSpan? remainingMinutes, List<WorldObjectivesEntry> currentObjectives, List<WorldObjectivesEntry> completedObjectives, List<CodexEntry> codexEntries)
     {
         Stations = stations;
         AssignmentName = assignmentName;
@@ -31,6 +32,7 @@ public sealed class JobNetUpdateState : BoundUserInterfaceState
         RemainingMinutes = remainingMinutes;
         CurrentObjectives = currentObjectives;
         CompletedObjectives = completedObjectives;
+        CodexEntries = codexEntries;
     }
 }
 

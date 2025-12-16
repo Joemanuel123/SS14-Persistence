@@ -108,17 +108,20 @@ public sealed partial class JobNetSystem
         }
         List<WorldObjectivesEntry> currentObjectives;
         List<WorldObjectivesEntry> completedObjectives;
+        List<CodexEntry> codexEntries;
         if (_meta.MetaRecords != null)
         {
             completedObjectives = _meta.MetaRecords.CompletedObjectives;
             currentObjectives = _meta.MetaRecords.CurrentObjectives;
+            codexEntries = _meta.MetaRecords.CodexEntries;
         }
         else
         {
             completedObjectives = new();
             currentObjectives = new();
+            codexEntries = new();
         }
-        var state = new JobNetUpdateState(possibleStations, assignmentName, wage, selectedstation, remainingTime, currentObjectives, completedObjectives);
+        var state = new JobNetUpdateState(possibleStations, assignmentName, wage, selectedstation, remainingTime, currentObjectives, completedObjectives, codexEntries);
         _ui.SetUiState(jobnet, JobNetUiKey.Key, state);
     }
 

@@ -11,12 +11,17 @@ public sealed partial class CrewMetaRecordsComponent : Component
 
     [DataField]
     public int NextObjectiveID = 1;
+    [DataField]
+    public int NextCodexID = 1;
 
     [DataField]
     public List<WorldObjectivesEntry> CurrentObjectives { get; set; } = new();
 
     [DataField]
     public List<WorldObjectivesEntry> CompletedObjectives { get; set; } = new();
+
+    [DataField]
+    public List<CodexEntry> CodexEntries { get; set; } = new();
 
     [DataField]
     [AutoNetworkedField]

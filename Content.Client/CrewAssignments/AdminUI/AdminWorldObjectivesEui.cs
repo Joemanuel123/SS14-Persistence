@@ -15,9 +15,6 @@ public sealed class AdminWorldObjectivesEui : BaseEui
     {
         _window = new AdminWorldObjectivesWindow(this);
         _window.OnClose += () => SendMessage(new AdminWorldObjectivesEuiMsg.Close());
-        _window.OnFollowWorldObjectives += entity => SendMessage(new AdminWorldObjectivesEuiMsg.Follow(entity));
-        _window.OnMessageSend += args => SendMessage(new AdminWorldObjectivesEuiMsg.Send(args.entity, args.title,
-                    args.stampedBy, args.message, args.stampSprite, args.stampColor, args.locked));
     }
 
     public override void Opened()

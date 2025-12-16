@@ -16,6 +16,7 @@
             <cc:CommandButton Command="faxui" Text="{Loc admin-player-actions-window-admin-fax}"/>
             <cc:CommandButton Command="achatwindow" Text="{Loc admin-player-actions-window-admin-chat}"/>
             <cc:CommandButton Command="worldobjectivesui" Text="World Objectives"/>
+            <cc:CommandButton Command="codexui" Text="Threshold Codex"/>
         </GridContainer>
     </BoxContainer>
 </Control>

@@ -56,6 +56,15 @@
     <Compile Update="CrewAssignments\UI\WorldObjectiveEdit.xaml.cs">
       <DependentUpon>WorldObjectiveEdit.xaml</DependentUpon>
     </Compile>
+    <Compile Update="CrewAssignments\AdminUI\CodexWindow.xaml.cs">
+      <DependentUpon>CodexWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="CrewAssignments\UI\CodexEditMenu.xaml.cs">
+      <DependentUpon>CodexEditMenu.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="CrewAssignments\UI\CodexEntryMenu.xaml.cs">
+      <DependentUpon>CodexEntryMenu.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Update="Access\UI\IdPrinterConsoleWindow.xaml" />

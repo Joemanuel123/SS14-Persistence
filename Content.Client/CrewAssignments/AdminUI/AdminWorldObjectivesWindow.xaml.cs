@@ -14,8 +14,6 @@ namespace Content.Client.CrewAssignments.AdminUI;
 public sealed partial class AdminWorldObjectivesWindow : DefaultWindow
 {
 
-    public Action<(NetEntity entity, string title, string stampedBy, string message, string stampSprite, Color stampColor, bool locked)>? OnMessageSend;
-    public Action<NetEntity>? OnFollowWorldObjectives;
 
     public AdminWorldObjectivesEui _owner;
 
