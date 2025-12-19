@@ -4,8 +4,8 @@ meta:
   engineVersion: 268.0.0
   forkId: ""
   forkVersion: ""
-  time: 12/18/2025 19:47:23
-  entityCount: 7296
+  time: 12/19/2025 21:34:58
+  entityCount: 7318
 maps:
 - 1
 grids:
@@ -41,8 +41,8 @@ entities:
     - type: Broadphase
     - type: OccluderTree
     - type: SolarLocation
-      sunAngularVelocity: 0.0020154707216675583 rad
-      towardsSun: 6.090838063538185 rad
+      sunAngularVelocity: 0.0021687739236299812 rad
+      towardsSun: 0.30518354907803097 rad
   - uid: 2
     components:
     - type: MetaData
@@ -5685,6 +5685,92 @@ entities:
         Piercing: 0
     - type: Fixtures
       fixtures: {}
+- proto: AtmosDeviceFanDirectional
+  entities:
+  - uid: 7302
+    components:
+    - type: Transform
+      rot: 1.5707963267948966 rad
+      pos: 63.5,11.5
+      parent: 2
+  - uid: 7303
+    components:
+    - type: Transform
+      rot: 1.5707963267948966 rad
+      pos: 63.5,12.5
+      parent: 2
+  - uid: 7304
+    components:
+    - type: Transform
+      rot: 1.5707963267948966 rad
+      pos: 63.5,14.5
+      parent: 2
+  - uid: 7305
+    components:
+    - type: Transform
+      rot: 1.5707963267948966 rad
+      pos: 63.5,15.5
+      parent: 2
+  - uid: 7306
+    components:
+    - type: Transform
+      rot: 1.5707963267948966 rad
+      pos: 63.5,13.5
+      parent: 2
+  - uid: 7307
+    components:
+    - type: Transform
+      rot: 1.5707963267948966 rad
+      pos: 63.5,-7.5
+      parent: 2
+  - uid: 7308
+    components:
+    - type: Transform
+      rot: 1.5707963267948966 rad
+      pos: 63.5,-6.5
+      parent: 2
+  - uid: 7309
+    components:
+    - type: Transform
+      rot: 1.5707963267948966 rad
+      pos: 63.5,-5.5
+      parent: 2
+  - uid: 7310
+    components:
+    - type: Transform
+      rot: 1.5707963267948966 rad
+      pos: 63.5,-4.5
+      parent: 2
+  - uid: 7311
+    components:
+    - type: Transform
+      rot: 1.5707963267948966 rad
+      pos: 63.5,-3.5
+      parent: 2
+  - uid: 7312
+    components:
+    - type: Transform
+      rot: 3.141592653589793 rad
+      pos: 3.5,55.5
+      parent: 2
+  - uid: 7313
+    components:
+    - type: Transform
+      rot: 3.141592653589793 rad
+      pos: 4.5,55.5
+      parent: 2
+  - uid: 7314
+    components:
+    - type: Transform
+      rot: 3.141592653589793 rad
+      pos: 1.5,55.5
+      parent: 2
+  - uid: 7315
+    components:
+    - type: Transform
+      rot: 3.141592653589793 rad
+      pos: 0.5,55.5
+      parent: 2
 - proto: AtmosFixAirMarker
   entities:
   - uid: 6378
@@ -33046,6 +33132,13 @@ entities:
     - type: Transform
       pos: 57.496593,36.673855
       parent: 2
+- proto: ClothingBeltPlantFilled
+  entities:
+  - uid: 7297
+    components:
+    - type: Transform
+      pos: -10.052929,13.978104
+      parent: 2
 - proto: ClothingBeltUtilityEngineering
   entities:
   - uid: 2433
@@ -35830,6 +35923,20 @@ entities:
         Blunt: 0
         Slash: 0
         Piercing: 0
+- proto: DefaultStationBeaconPowerBank
+  entities:
+  - uid: 7316
+    components:
+    - type: Transform
+      pos: 45.5,-22.5
+      parent: 2
+    - type: Damageable
+      damageDictCopy:
+        Heat: 0
+        Shock: 0
+        Blunt: 0
+        Slash: 0
+        Piercing: 0
 - proto: DefaultStationBeaconQMRoom
   entities:
   - uid: 6642
@@ -35906,6 +36013,20 @@ entities:
     components:
     - type: Transform
       pos: -15.5,12.5
+      parent: 2
+    - type: Damageable
+      damageDictCopy:
+        Heat: 0
+        Shock: 0
+        Blunt: 0
+        Slash: 0
+        Piercing: 0
+- proto: DefaultStationBeaconSolarsNW
+  entities:
+  - uid: 7318
+    components:
+    - type: Transform
+      pos: -14.5,39.5
       parent: 2
     - type: Damageable
       damageDictCopy:
@@ -76740,8 +76861,8 @@ entities:
     - type: UseDelay
       delays:
         gasTank:
-          endTime: 293.1966279
-          startTime: 292.1966279
+          endTime: 153.0230103
+          startTime: 152.0230103
           length: 1
     - type: Jetpack
       toggleActionEntity: 661
@@ -76768,8 +76889,8 @@ entities:
     - type: UseDelay
       delays:
         gasTank:
-          endTime: 293.1966279
-          startTime: 292.1966279
+          endTime: 153.0230103
+          startTime: 152.0230103
           length: 1
     - type: Jetpack
       toggleActionEntity: 6933
@@ -76815,12 +76936,41 @@ entities:
         Blunt: 0
         Slash: 0
         Piercing: 0
+  - uid: 7300
+    components:
+    - type: Transform
+      pos: -14.5,14.5
+      parent: 2
+    - type: DeviceNetwork
+      address: 0B8F-74DD
+      receiveFrequency: 1280
+    - type: Damageable
+      damageDictCopy:
+        Heat: 0
+        Shock: 0
+        Structural: 0
+        Blunt: 0
+        Slash: 0
+        Piercing: 0
 - proto: KitchenReagentGrinder
   entities:
   - uid: 1657
     components:
     - type: Transform
       pos: 45.5,37.5
+      parent: 2
+    - type: Damageable
+      damageDictCopy:
+        Heat: 0
+        Shock: 0
+        Structural: 0
+        Blunt: 0
+        Slash: 0
+        Piercing: 0
+  - uid: 7301
+    components:
+    - type: Transform
+      pos: -15.5,14.5
       parent: 2
     - type: Damageable
       damageDictCopy:
@@ -81988,6 +82138,22 @@ entities:
       parent: 2
     - type: DeviceNetwork
       address: 32F5-6A8F
+      receiveFrequency: 1173
+    - type: Damageable
+      damageDictCopy:
+        Heat: 0
+        Shock: 0
+        Blunt: 0
+        Slash: 0
+        Piercing: 0
+  - uid: 7317
+    components:
+    - type: Transform
+      rot: 3.141592653589793 rad
+      pos: 12.5,19.5
+      parent: 2
+    - type: DeviceNetwork
+      address: 3319-EDA7
       receiveFrequency: 1173
     - type: Damageable
       damageDictCopy:
@@ -88108,21 +88274,6 @@ entities:
         Blunt: 0
         Slash: 0
         Piercing: 0
-- proto: TableFrame
-  entities:
-  - uid: 470
-    components:
-    - type: Transform
-      pos: -13.5,14.5
-      parent: 2
-    - type: Damageable
-      damageDictCopy:
-        Heat: 0
-        Shock: 0
-        Structural: 0
-        Blunt: 0
-        Slash: 0
-        Piercing: 0
 - proto: TableGlass
   entities:
   - uid: 1803
@@ -88384,6 +88535,19 @@ entities:
     - type: Transform
       rot: -1.5707963267948966 rad
       pos: -13.5,19.5
+      parent: 2
+    - type: Damageable
+      damageDictCopy:
+        Heat: 0
+        Shock: 0
+        Structural: 0
+        Blunt: 0
+        Slash: 0
+        Piercing: 0
+  - uid: 470
+    components:
+    - type: Transform
+      pos: -13.5,14.5
       parent: 2
     - type: Damageable
       damageDictCopy:
@@ -88903,6 +89067,32 @@ entities:
     components:
     - type: Transform
       pos: 40.5,10.5
+      parent: 2
+    - type: Damageable
+      damageDictCopy:
+        Heat: 0
+        Shock: 0
+        Structural: 0
+        Blunt: 0
+        Slash: 0
+        Piercing: 0
+  - uid: 7298
+    components:
+    - type: Transform
+      pos: -14.5,14.5
+      parent: 2
+    - type: Damageable
+      damageDictCopy:
+        Heat: 0
+        Shock: 0
+        Structural: 0
+        Blunt: 0
+        Slash: 0
+        Piercing: 0
+  - uid: 7299
+    components:
+    - type: Transform
+      pos: -15.5,14.5
       parent: 2
     - type: Damageable
       damageDictCopy:
