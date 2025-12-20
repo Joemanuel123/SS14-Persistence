@@ -2,6 +2,8 @@ using Content.Shared.Cargo.Prototypes;
 using Content.Shared.CrewAccesses.Components;
 using Content.Shared.CrewAssignments.Components;
 using Content.Shared.CrewAssignments.Prototypes;
+using Content.Shared.Radio;
+using Content.Shared.Station.Components;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Serialization;
 
@@ -20,8 +22,9 @@ public sealed class StationModificationInterfaceState : BoundUserInterfaceState
     public int SalesTax;
     public ProtoId<FactionLevelPrototype> Level;
     public int AccountBalance;
+    public Dictionary<ProtoId<RadioChannelPrototype>, FactionRadioData> RadioData;
 
-    public StationModificationInterfaceState(string name, NetEntity station, List<string> owners, Dictionary<string, CrewAccess> crewAccess, Dictionary<int, CrewAssignment> crewAssignments, int importTax, int exportTax, int salesTax, ProtoId<FactionLevelPrototype> level, int accountBalance)
+    public StationModificationInterfaceState(string name, NetEntity station, List<string> owners, Dictionary<string, CrewAccess> crewAccess, Dictionary<int, CrewAssignment> crewAssignments, int importTax, int exportTax, int salesTax, ProtoId<FactionLevelPrototype> level, int accountBalance, Dictionary<ProtoId<RadioChannelPrototype>, FactionRadioData> radioData)
     {
         Name = name;
         Station = station;
@@ -33,5 +36,6 @@ public sealed class StationModificationInterfaceState : BoundUserInterfaceState
         SalesTax = salesTax;
         Level = level;
         AccountBalance = accountBalance;
+        RadioData = radioData;
     }
 }

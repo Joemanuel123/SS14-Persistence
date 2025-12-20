@@ -1,9 +1,11 @@
-using System.Linq;
+using Content.Shared.CrewAssignments.Components;
+using Content.Shared.CrewRecords.Components;
 using Content.Shared.GridControl.Components;
 using Content.Shared.Station.Components;
 using JetBrains.Annotations;
 using Robust.Shared.Map;
 using Robust.Shared.Map.Components;
+using System.Linq;
 
 namespace Content.Shared.Station;
 
@@ -149,6 +151,33 @@ public abstract partial class SharedStationSystem : EntitySystem
         }
 
         return stations;
+    }
+
+    public List<EntityUid> GetStationsAvailableTo(string realName)
+    {
+        var stations = GetStations();
+        List<EntityUid> possibleStations = new();
+        foreach (var iStation in stations)
+        {
+            if (TryComp<StationDataComponent>(iStation, out var owningSD) && owningSD != null)
+            {
+                if (owningSD.Owners.Contains(realName))
+                {
+                    possibleStations.Add(iStation);
+                }
+                else
+                {
+                    if (TryComp<CrewRecordsComponent>(iStation, out var owningCrew) && owningCrew != null)
+                    {
+                        if (owningCrew.TryGetRecord(realName, out var crewRecord) && crewRecord != null)
+                        {
+                            possibleStations.Add(iStation);
+                        }
+                    }
+                }
+            }
+        }
+        return possibleStations;
     }
 
     public EntityUid? GetStationByID(int uid)

@@ -65,6 +65,7 @@ public sealed class StationModificationConsoleBoundUserInterface : BoundUserInte
         _menu.AccessDeleteConfirm.OnPressed += DeleteAccess;
         _menu.CreateAssignment.OnPressed += CreateAssignment;
         _menu.OnAssignmentAccessPressed += ToggleAssignmentAccess;
+        _menu.OnChannelAccessPressed += ToggleChannelAccess;
         _menu.CommandLevelConfirm.OnPressed += ChangeCommandLevel;
         _menu.AssignmentWageConfirm.OnPressed += ChangeWage;
         _menu.AssignmentNameConfirm.OnPressed += ChangeAssignmentName;
@@ -77,6 +78,8 @@ public sealed class StationModificationConsoleBoundUserInterface : BoundUserInte
         _menu.ETaxConfirm.OnPressed += ChangeETax;
         _menu.STaxConfirm.OnPressed += ChangeSTax;
         _menu.LevelPurchaseButton.OnPressed += PurchaseUpgrade;
+        _menu.ChannelEnable.OnPressed += OnChannelEnable;
+        _menu.ChannelDisable.OnPressed += OnChannelDisable;
         _menu.OpenCentered();
     }
 
@@ -99,6 +102,7 @@ public sealed class StationModificationConsoleBoundUserInterface : BoundUserInte
         _menu?.UpdateAccesses(Accesses);
         _menu?.UpdateAssignments(Assignments);
         _menu?.UpdateUpgrades(cState.Level, cState.AccountBalance);
+        _menu?.UpdateChannels(cState.RadioData);
         if(_menu != null)
         {
             _menu.ETaxSpinBox.Value = cState.ExportTax;
@@ -168,6 +172,34 @@ public sealed class StationModificationConsoleBoundUserInterface : BoundUserInte
         string newName = _menu.NewAssignmentNameField.Text;
         if (newName == null || newName == "") return;
         SendMessage(new StationModificationCreateAssignment(newName));
+    }
+
+    private void ToggleChannelAccess(ButtonToggledEventArgs args)
+    {
+        if (_menu == null || _menu.RadioData == null) return;
+        var ind = _menu.PossibleChannels.SelectedId;
+        if (_menu.RadioData.Count - 1 < ind) return;
+        var kv = _menu.RadioData.ElementAtOrDefault(ind);
+        Button real = (Button)args.Button;
+        if (real == null || real.Text == null) return;
+        SendMessage(new StationModificationToggleChannelAccess(kv.Key, args.Pressed, real.Text));
+    }
+    private void OnChannelEnable(ButtonEventArgs args)
+    {
+        if(_menu == null || _menu.RadioData == null) return;
+        var ind = _menu.PossibleChannels.SelectedId;
+        if (_menu.RadioData.Count - 1 < ind) return;
+        var kv = _menu.RadioData.ElementAtOrDefault(ind);
+        SendMessage(new StationModificationEnableChannel(kv.Key));
+    }
+
+    private void OnChannelDisable(ButtonEventArgs args)
+    {
+        if (_menu == null || _menu.RadioData == null) return;
+        var ind = _menu.PossibleChannels.SelectedId;
+        if (_menu.RadioData.Count - 1 < ind) return;
+        var kv = _menu.RadioData.ElementAtOrDefault(ind);
+        SendMessage(new StationModificationDisableChannel(kv.Key));
     }
     private void ToggleAssignmentAccess(ButtonToggledEventArgs args)
     {

@@ -44,6 +44,9 @@ public sealed partial class CrewAssignmentSystem
         SubscribeLocalEvent<StationModificationConsoleComponent, StationModificationRemoveAccess>(OnDeleteAccess);
         SubscribeLocalEvent<StationModificationConsoleComponent, StationModificationCreateAssignment>(OnCreateAssignment);
         SubscribeLocalEvent<StationModificationConsoleComponent, StationModificationToggleAssignmentAccess>(OnToggleAccess);
+        SubscribeLocalEvent<StationModificationConsoleComponent, StationModificationToggleChannelAccess>(OnToggleChannelAccess);
+        SubscribeLocalEvent<StationModificationConsoleComponent, StationModificationEnableChannel>(OnEnableChannel);
+        SubscribeLocalEvent<StationModificationConsoleComponent, StationModificationDisableChannel>(OnDisableChannel);
         SubscribeLocalEvent<StationModificationConsoleComponent, StationModificationToggleClaim>(OnToggleClaim);
         SubscribeLocalEvent<StationModificationConsoleComponent, StationModificationToggleSpend>(OnToggleSpend);
         SubscribeLocalEvent<StationModificationConsoleComponent, StationModificationToggleAssign>(OnToggleAssign);
@@ -357,6 +360,98 @@ public sealed partial class CrewAssignmentSystem
 
     }
 
+    private void OnEnableChannel(EntityUid uid, StationModificationConsoleComponent component, StationModificationEnableChannel args)
+    {
+        if (args.Actor is not { Valid: true } player)
+            return;
+
+        var station = _station.GetOwningStation(uid);
+        if (station == null) return;
+
+        if (!Validate(uid, component, player, out var stationData)) return;
+        if (!TryComp<StationDataComponent>(station, out var sD))
+        {
+            ConsolePopup(player, "No Station Data Component!");
+            return;
+        }
+        if (!sD.RadioData.TryGetValue(args.ChannelID, out var channelData))
+        {
+            ConsolePopup(player, "Invalid Channel!");
+            return;
+        }
+        channelData.Enabled = true;
+        Dirty((EntityUid)station, sD);
+        UpdateOrders(station.Value);
+    }
+
+    private void OnDisableChannel(EntityUid uid, StationModificationConsoleComponent component, StationModificationDisableChannel args)
+    {
+        if (args.Actor is not { Valid: true } player)
+            return;
+
+        var station = _station.GetOwningStation(uid);
+        if (station == null) return;
+
+        if (!Validate(uid, component, player, out var stationData)) return;
+        if (!TryComp<StationDataComponent>(station, out var sD))
+        {
+            ConsolePopup(player, "No Station Data Component!");
+            return;
+        }
+        if (!sD.RadioData.TryGetValue(args.ChannelID, out var channelData))
+        {
+            ConsolePopup(player, "Invalid Channel!");
+            return;
+        }
+        channelData.Enabled = false;
+        Dirty((EntityUid)station, sD);
+        UpdateOrders(station.Value);
+    }
+    private void OnToggleChannelAccess(EntityUid uid, StationModificationConsoleComponent component, StationModificationToggleChannelAccess args)
+    {
+        if (args.Actor is not { Valid: true } player)
+            return;
+
+        var station = _station.GetOwningStation(uid);
+        if (station == null) return;
+
+        if (!Validate(uid, component, player, out var stationData)) return;
+        if (!TryComp<StationDataComponent>(station, out var sD))
+        {
+            ConsolePopup(player, "No Station Data Component!");
+            return;
+        }
+        if (!sD.RadioData.TryGetValue(args.ChannelID, out var channelData))
+        {
+            ConsolePopup(player, "Invalid Channel!");
+            return;
+        }
+        if (args.ToggleState)
+        {
+            if (channelData.Access.Contains(args.Access))
+            {
+                return;
+            }
+            else
+            {
+                channelData.Access.Add(args.Access);
+            }
+        }
+        else
+        {
+            if (channelData.Access.Contains(args.Access))
+            {
+                channelData.Access.Remove(args.Access);
+            }
+            else
+            {
+                return;
+            }
+        }
+        Dirty(station.Value, sD);
+        UpdateOrders(station.Value);
+    }
+
     private void OnToggleAccess(EntityUid uid, StationModificationConsoleComponent component, StationModificationToggleAssignmentAccess args)
     {
         if (args.Actor is not { Valid: true } player)
@@ -605,7 +700,8 @@ public sealed partial class CrewAssignmentSystem
                 data.ExportTax,
                 data.SalesTax,
                 data.Level,
-                _cargo.GetBalanceFromAccount((station.Value, bank), "Cargo")
+                _cargo.GetBalanceFromAccount((station.Value, bank), "Cargo"),
+                data.RadioData
             ));
         }
     }

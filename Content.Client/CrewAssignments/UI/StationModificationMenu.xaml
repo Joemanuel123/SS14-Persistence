@@ -206,6 +206,51 @@
                     </BoxContainer>
                     
             </BoxContainer>
+            <!-- Radio Management -->
+            <BoxContainer Orientation="Vertical" Margin="15">
+                <BoxContainer Orientation="Horizontal">
+                    <Label Text="Selected Channel:" Margin="0 0 10 0"
+                           StyleClasses="LabelKeyText" />
+                    <Control HorizontalExpand="True"/>
+                    <OptionButton Name="PossibleChannels" Access="Public"/>
+                </BoxContainer>
+                <Control MinHeight="30"/>
+                <BoxContainer  Name="ChannelDetails" Orientation="Vertical">
+                    <BoxContainer Orientation="Horizontal">
+                        <Label Text="Channel Status:" StyleClasses="LabelKeyText" />
+                        <Control HorizontalExpand="True"/>
+                        <Button Name="ChannelEnable" Access="Public" Text="Enabled"/>
+                        <Button Name="ChannelDisable" Access="Public" Text="Disabled"/>
+                    </BoxContainer>
+                </BoxContainer>
+                <Control MinHeight="15"/>
+                <BoxContainer Orientation="Vertical">
+                    <BoxContainer Orientation="Horizontal">
+                        <Label Text="Access:"
+                            StyleClasses="LabelKeyText" />
+                    </BoxContainer>
+                    <BoxContainer Orientation="Horizontal" MinHeight="300">
+                        <PanelContainer VerticalExpand="True"
+                                        HorizontalExpand="True"
+                                    SizeFlagsStretchRatio="1"
+                                    Name="ChannelAccessesPC">
+                            <PanelContainer.PanelOverride>
+                                <gfx:StyleBoxFlat BackgroundColor="#000000" />
+                            </PanelContainer.PanelOverride>
+                            <ScrollContainer VerticalExpand="True" HorizontalExpand="True">
+                                <BoxContainer Orientation="Vertical" Margin="5" MinHeight ="10">
+                                    <WrapContainer Name="ChannelAccessesBC"
+                                        Access="Public"
+                                        VerticalExpand="True"
+                                        MaxWidth="500">
+
+                                    </WrapContainer>
+                                </BoxContainer>
+                            </ScrollContainer>
+                        </PanelContainer>
+                    </BoxContainer>
+                </BoxContainer>
+            </BoxContainer>
             <!-- Upgrade Management -->
             <BoxContainer Orientation="Vertical" Margin="15">
                 <Control MinHeight="5"/>

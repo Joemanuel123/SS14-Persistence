@@ -3,7 +3,7 @@
   parent: Clothing
   id: ClothingHeadset
   name: headset
-  description: An updated, modular intercom that fits over the head. Takes encryption keys.
+  description: An updated, modular intercom that fits over the head.
   components:
   - type: ContainerContainer
     containers:
@@ -20,12 +20,23 @@
   - type: Item
     size: Small
   - type: Clothing
+    quickEquip: false
     slots:
     - ears
     sprite: Clothing/Ears/Headsets/base.rsi
   - type: GuideHelp
     guides:
     - Radio
+  - type: UserInterface
+    interfaces:
+      enum.HeadsetMenuUiKey.Key:
+        type: HeadsetMenuBoundUserInterface
+  - type: ActivatableUI
+    key: enum.HeadsetMenuUiKey.Key
+    requiresComplex: true
+    requireActiveHand: false
+    singleUser: true
+    inHandsOnly: true
 
 - type: entity
   parent: ClothingHeadset
