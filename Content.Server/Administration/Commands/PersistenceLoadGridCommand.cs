@@ -4,6 +4,7 @@ using Robust.Shared.Map;
 using System.Numerics;
 using Robust.Shared.EntitySerialization;
 using Content.Server.Persistence.Systems;
+using Robust.Shared.Utility;
 
 namespace Content.Server.Administration.Commands;
 
@@ -87,7 +88,7 @@ public sealed class PersistenceLoadGridCommand : LocalizedEntityCommands
             opts.StoreYamlUids = storeUids;
         }
 
-        if (!_persistence.LoadGrid(args[1], mapId, offset, rot, out var errorMessage, out var grid, opts))
+        if (!_persistence.LoadGrid(new ResPath(args[1]), mapId, offset, rot, out var errorMessage, out var grid, opts))
         {
             shell.WriteError("There was a problem while loading the grid.");
             if (!string.IsNullOrWhiteSpace(errorMessage))
