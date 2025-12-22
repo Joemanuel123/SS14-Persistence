@@ -45,10 +45,10 @@
   - type: PhysicalComposition
     materialComposition:
       Steel: 100
-  - type: Stack
   - type: Tag
     tags:
-    - Steel
+    - Steel      
+  - type: Stack
     stackType: Steel
     baseLayer: base
     layerStates:
