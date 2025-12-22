@@ -7,6 +7,7 @@ using Robust.Shared.Map;
 using Robust.Shared.Map.Components;
 using Robust.Shared.Player;
 using Robust.Shared.Random;
+using Robust.Shared.Timing;
 using Robust.Shared.Utility;
 
 namespace Content.Server.Persistence.Systems;
@@ -20,22 +21,25 @@ public sealed class PersistenceSystem : EntitySystem
     [Dependency] private readonly IRobustRandom _random = default!;
 
     public bool LoadGrid(
-        string filePath, MapId mapId, Vector2 offset, Angle rot,
+        ResPath path, MapId mapId, Vector2 offset, Angle rot,
         out string? errorMessage, out Entity<MapGridComponent>? grid,
-        DeserializationOptions? opts = null
+        DeserializationOptions? opts = null, bool dumpSpecialEntities = false
     )
     {
         if (opts == null)
             opts = DeserializationOptions.Default;
         errorMessage = null;
 
-        var path = new ResPath(filePath);
         if (!_mapLoaderSys.TryLoadGrid(mapId, path, out grid, opts, offset, rot))
         {
             errorMessage = $"Could not load the grid! Check console perhaps...";
             return false;
         }
-        _transform.SetLocalPositionRotation(grid.Value, offset, rot);
+        var gridUid = grid.Value;
+        _transform.SetWorldPositionRotation(gridUid, offset, rot);
+
+        if (dumpSpecialEntities) // On grid load, colliding entites arent inside the parent yet. Need to requeue
+            Timer.Spawn(10, () => DumpSpecialEntities(gridUid));
         return true;
     }
 

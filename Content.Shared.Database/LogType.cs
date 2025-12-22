@@ -480,4 +480,5 @@ public enum LogType
     Instrument = 103,
 
     ATMUsage = 200,
+    BluespaceParking = 201,
 }

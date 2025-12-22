@@ -164,6 +164,62 @@ public abstract partial class SharedStationSystem : EntitySystem
             }
         }
     }
+
+    public bool GetGridAccess(
+        EntityUid? grid, string privilegedName, EntityUid? owningStation, string? owningPerson, bool ignoreGrid = false
+    )
+    {
+        var isAuth = false;
+        if (privilegedName != "")
+        {
+            if (owningStation != null)
+            {
+                if (TryComp<StationDataComponent>(owningStation, out var owningSD) && owningSD != null)
+                {
+                    if (owningSD.Owners.Contains(privilegedName))
+                    {
+                        isAuth = true;
+                    }
+                    else
+                    {
+                        if (TryComp<CrewRecordsComponent>(owningStation, out var owningCrew) && owningCrew != null)
+                        {
+                            if (owningCrew.TryGetRecord(privilegedName, out var crewRecord) && crewRecord != null)
+                            {
+                                if (TryComp<CrewAssignmentsComponent>(owningStation, out var crewAssignments) && crewAssignments != null)
+                                {
+                                    if (crewAssignments.TryGetAssignment(crewRecord.AssignmentID, out var crewAssignment) && crewAssignment != null)
+                                    {
+                                        if (crewAssignment.CanClaim)
+                                        {
+                                            isAuth = true;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            else if (owningPerson != null)
+            {
+                if (owningPerson == privilegedName)
+                {
+                    isAuth = true;
+                }
+            }
+            else
+            {
+                if (grid != null || ignoreGrid)
+                {
+                    isAuth = true;
+                }
+            }
+
+        }
+        return isAuth;
+    }
+
     public List<EntityUid> GetStations()
     {
         var stations = new List<EntityUid>();
