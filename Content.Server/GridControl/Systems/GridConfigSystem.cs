@@ -282,9 +282,12 @@ public sealed class GridConfigSystem : SharedGridConfigSystem
                 _protoMan.Resolve(owningSD.Level, out var levelProto);
                 if (levelProto != null)
                 {
-                    if (!levelProto.TradestationClaim)
+                    if(tradeStationGrid)
                     {
-                        return false;
+                        if (!levelProto.TradestationClaim)
+                        {
+                            return false;
+                        }
                     }
                     if (targetGrid.HasValue && TryComp<MapGridComponent>(targetGrid, out var targetGridComp))
                     {
