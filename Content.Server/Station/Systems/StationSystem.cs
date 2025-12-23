@@ -65,6 +65,8 @@ public sealed partial class StationSystem : SharedStationSystem
         SubscribeLocalEvent<StationDataComponent, ComponentShutdown>(OnStationDeleted);
         SubscribeLocalEvent<StationMemberComponent, ComponentShutdown>(OnStationGridDeleted);
         SubscribeLocalEvent<StationMemberComponent, PostGridSplitEvent>(OnStationSplitEvent);
+        SubscribeLocalEvent<StationMemberComponent, ComponentStartup>(OnStationMemberStartup);
+
 
         SubscribeLocalEvent<StationGridAddedEvent>(OnStationGridAdded);
         SubscribeLocalEvent<StationGridRemovedEvent>(OnStationGridRemoved);
@@ -160,6 +162,18 @@ public sealed partial class StationSystem : SharedStationSystem
     }
 
     #region Event handlers
+
+    private void OnStationMemberStartup(EntityUid uid, StationMemberComponent component, ComponentStartup args)
+    {
+        if (component.StationUID != null)
+        {
+            var station = GetStationByID(component.StationUID.Value);
+            if(station != null)
+            {
+                component.Station = station.Value;
+            }
+        }
+    }
 
     private void OnStationAdd(EntityUid uid, StationDataComponent component, ComponentStartup args)
     {
