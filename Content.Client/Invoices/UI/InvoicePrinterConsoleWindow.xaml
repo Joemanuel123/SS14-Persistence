@@ -4,26 +4,31 @@
         <BoxContainer Orientation="Horizontal">
             <Label Text="{Loc 'id-card-console-window-privileged-id'}" />
             <Button Name="PrivilegedIdButton" Access="Public"/>
-            <Label Name="PrivilegedIdLabel" />
             <Control HorizontalExpand="True"/>
-            <Label Text="Change Account:" />
-            <Button Name="ChangeModeBtn" Text="Station" Access="Public" />
+            <Label Text="Account:" />
+            <Button Name="ChangeModeStation" Text="Station" Access="Public" />
+            <Button Name="ChangeModePersonal" Text="Personal" Access="Public" />
         </BoxContainer>
         <BoxContainer Orientation="Horizontal">
             <Label Text="Target Account:" />
             <Control MinWidth="5"/>
             <Label Name="TargetAccountLabel" Text="Station Name" />
             <Control HorizontalExpand="True"/>
-            <BoxContainer Orientation="Horizontal" Name="TaxDetails">
-                
-                <Label Name="TaxRateLabel" Text="Sales Tax: 0%" />
-            </BoxContainer>
+            <OptionButton Name="PossibleStations" Access="Public"/>
+        </BoxContainer>
+        <BoxContainer Orientation="Horizontal" Name="TaxDetails">
+            <Label Text="Taxing Account:" />
+            <Control MinWidth="5"/>
+            <Label Name="TaxingAccountLabel" Text="Station Name" />
+            <Control HorizontalExpand="True"/>
+            <Label Name="TaxRateLabel" Text="Sales Tax: 0%" />
         </BoxContainer>
         <Control VerticalExpand="True"/>
-        <BoxContainer Orientation="Horizontal">
+        <BoxContainer Orientation="Horizontal" MinHeight ="150">
             <Label Text="Invoice Reason: " />
-            <LineEdit Name="ReasonLineEdit" HorizontalExpand="True" Access="Public"/>
-            
+            <PanelContainer StyleIdentifier="PaperEditBackground" VerticalExpand="True" HorizontalExpand="True">
+                <TextEdit Name="ReasonLineEdit"  Access="Public" HorizontalExpand="True" VerticalExpand="True"/>
+            </PanelContainer>
         </BoxContainer>
         <BoxContainer Orientation="Horizontal">
             <Label Text="Invoice Cost:    $" />

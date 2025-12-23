@@ -1,4 +1,5 @@
 using Content.Client.CrewAssignments.UI;
+using Content.Client.Message;
 using Content.Shared.Access;
 using Content.Shared.Access.Systems;
 using Content.Shared.CCVar;
@@ -41,7 +42,7 @@ namespace Content.Client.Invoices.UI
         }
         public void UpdateState(InvoiceBoundUserInterfaceState state)
         {
-            ReasonLabel.Text = state.InvoiceReason;
+            ReasonLabel.SetMarkup(state.InvoiceReason);
             CostLabel.Text = $"${state.InvoiceCost}";
             PaidToLabel.Text = state.PaidTo;
             if(state.Paid)
