@@ -1,4 +1,5 @@
 using Content.Server._NF.Bank;
+using Content.Server.Access.Systems;
 using Content.Server.Chat.Managers;
 using Content.Server.CrewManifest;
 using Content.Server.Lathe.Components;
@@ -42,6 +43,7 @@ public sealed partial class JobNetSystem : EntitySystem
     [Dependency] private readonly IGameTiming _timing = default!;
     [Dependency] private readonly SharedCargoSystem _cargo = default!;
     [Dependency] private readonly CrewManifestSystem _crewManifest = default!;
+    [Dependency] private readonly IdCardSystem _card = default!;
     public override void Initialize()
     {
         base.Initialize();
@@ -74,6 +76,7 @@ public sealed partial class JobNetSystem : EntitySystem
                 var sId = _station.GetStationByID(component.WorkingFor.Value);
                 if (sId != null) _crewManifest.BuildCrewManifest(sId.Value);
             }
+            _card.UpdateIDAssignment(Name(args.Actor), args.ID);
             UpdateUserInterface(args.Actor, uid, component);
             return;
         }
@@ -102,6 +105,7 @@ public sealed partial class JobNetSystem : EntitySystem
                                 var sId = _station.GetStationByID(component.WorkingFor.Value);
                                 if (sId != null) _crewManifest.BuildCrewManifest(sId.Value);
                             }
+                            _card.UpdateIDAssignment(Name(args.Actor), args.ID);
                             UpdateUserInterface(args.Actor, uid, component);
                         }
                     }
