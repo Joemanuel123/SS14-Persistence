@@ -4,14 +4,10 @@
     - type: WorldController
     - type: BiomeSelection
       biomes:
-        - FrozenWasteBiome
-        - ColdstoneBiome
-        - RockBiome
+        - FrozenCrystalBiome
         - IronrockBiome
         - RockyWastesBiome
-        - VolcanicRemnantsBiome
-        - GeoactiveBiome
+        - VolcanicBiome
         - WeirdmetalBiome
-        - BrassmetalBiome
         - VoidBiome
         - BaseBiome
