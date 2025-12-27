@@ -200,4 +200,15 @@
         tags:
         - SnakeBoots
   group: HunterBounty
-  
+
+- type: cargoBounty
+  id: BountyXeno
+  reward: 12500
+  description: bounty-description-xeno
+  entries:
+    - name: bounty-item-xenomeat
+      amount: 12
+      whitelist:
+        tags:
+        - XenoMeat
+  group: HunterBounty

@@ -700,6 +700,7 @@
     tags:
     - Raw
     - Meat
+    - XenoMeat
   - type: Sprite
     state: xeno
   - type: SolutionContainerManager

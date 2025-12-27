@@ -109,6 +109,7 @@ bounty-item-goliathmeat = Goliath meat
 bounty-item-spidermeat = Spider meat
 bounty-item-snakemeat = Snake meat
 bounty-item-snakeboots = Snakeskin boots
+bounty-item-xenomeat = Xeno meat
 
 bounty-description-artifact = NanoTrasen is in some hot water for stealing artifacts from non-spacefaring planets. Return one and we'll compensate you for it.
 bounty-description-baseball-bat = Baseball fever is going on at CentComm! Be a dear and ship them some baseball bats, so that management can live out their childhood dream.
@@ -195,3 +196,4 @@ bounty-description-anomalyscience = This idiotic Dr. Leeman triggered an anomaly
 bounty-description-bear = I want one'o them fancy schmancy Ol' Sollian Bearhide Hats that's on the medias these days. Gimme one, along with some meat to make jerky with.
 bounty-description-spider = I wonder if Spider tastes like Crab? Get me some spider meat! I'll pay big bucks!
 bounty-description-snake = Snakeskin seems so luxurious... I have a dire need for some snakeskin boots. Freshly killed for, ideally... send me its fresh meat as proof.
+bounty-description-xeno = Some people say their flesh tastes good. I don't believe that. Gimme some to sample... it can't be that good, can it?
