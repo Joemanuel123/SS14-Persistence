@@ -87,7 +87,7 @@
   noiseRanges:
     BiomeBase:
       - 2,4
-  debrisEntityTable: 'CarpMobCreaturesTable'
+  debrisEntityTable: 'DarkSpaceMobTable'
   chunkComponents:
     - type: DebrisFeaturePlacerController
       densityNoiseChannel: Density
@@ -170,14 +170,14 @@
         - id: BasaltDebrisMedium
           prob: 0.5
         - id: BasaltDebrisLarge
-          prob: 0.2
+          prob: 0.3
         - id: BasaltDebrisHuge
           prob: 0.1
         - id: AndesiteDebrisSmall
         - id: AndesiteDebrisMedium
           prob: 0.5
         - id: AndesiteDebrisLarge
-          prob: 0.2
+          prob: 0.3
         - id: AndesiteDebrisHuge
           prob: 0.1
         - id: ChromiteDebrisMediumRich
@@ -187,6 +187,7 @@
       noiseChannel: Wreck
       debrisTable:
         - id: ScrapDebrisLarge
+          prob: 0.3
     - type: NoiseRangeCarver
       ranges:
         - 0.4, 0.6
@@ -199,7 +200,7 @@
   noiseRanges:
     BiomeBase:
       - 9,10
-  debrisEntityTable: 'BluespaceMobCreaturesTable'
+  debrisEntityTable: 'XenoMobTable'
   chunkComponents:
     - type: DebrisFeaturePlacerController
       densityNoiseChannel: Density
@@ -225,6 +226,11 @@
       noiseChannel: Wreck
       debrisTable:
         - id: ScrapDebrisSmall
+          prob: 0.9
+        - id: ScrapDebrisMedium
+          prob: 0.3
+        - id: ScrapDebrisLarge
+          prob: 0.1
     - type: NoiseRangeCarver
       ranges:
         - 0.4, 0.6

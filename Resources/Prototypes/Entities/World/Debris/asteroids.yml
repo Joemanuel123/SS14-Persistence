@@ -755,6 +755,9 @@
           - id: WallRockBasaltTin
             prob: 0.2
             orGroup: rock
+          - id: WallRockBasaltCoal
+            prob: 0.15
+            orGroup: rock
           - id: WallRockBasaltUranium
             prob: 0.15
             orGroup: rock
@@ -810,6 +813,9 @@
             prob: 0.8
             orGroup: rock
           - id: WallRockBasaltTin
+            prob: 0.1
+            orGroup: rock
+          - id: WallRockBasaltCoal
             prob: 0.1
             orGroup: rock
           - id: WallRockBasaltUranium
@@ -868,6 +874,9 @@
             orGroup: rock
           - id: WallRockBasaltTin
             prob: 0.25
+            orGroup: rock
+          - id: WallRockBasaltCoal
+            prob: 0.2
             orGroup: rock
           - id: WallRockBasaltUranium
             prob: 0.25
