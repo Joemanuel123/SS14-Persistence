@@ -14,6 +14,7 @@
     - !type:GroupSelector # normal theats
       weight: 70
       children:
+      - id: MobSharkSalvage
       - id: MobCarpSalvage
         weight: 2
     - !type:GroupSelector # scary monsters
@@ -22,7 +23,7 @@
       - !type:AllSelector
         children:
         - id: MobHivelord
-        - id: MobBasilisk
+        - id: MobGoliath
         - id: MobSharkSalvage
         - id: MobCarpSalvage
           amount: 2
@@ -66,6 +67,7 @@
       weight: 60
       children:
       - id: MobBearSpace
+      - id: MobCobraSpace
       - id: MobKangarooSpace
       - id: MobSpiderSpace
         weight: 2
@@ -83,9 +85,12 @@
       children:
       - !type:AllSelector
         children:
-        - id: MobSpiderSpace
-        - id: MobKangarooSpace
+        - id: MobCobraSpace
           amount: 3
+        - id: MobSpiderSpace
+          amount: 1
+        - id: MobKangarooSpace
+          amount: 2
 
 
 - type: entityTable
