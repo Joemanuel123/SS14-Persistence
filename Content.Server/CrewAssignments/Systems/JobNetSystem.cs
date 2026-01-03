@@ -9,6 +9,7 @@ using Content.Shared.Cargo;
 using Content.Shared.Cargo.Components;
 using Content.Shared.CrewAssignments;
 using Content.Shared.CrewAssignments.Components;
+using Content.Shared.CrewAssignments.Prototypes;
 using Content.Shared.CrewRecords.Components;
 using Content.Shared.FixedPoint;
 using Content.Shared.Implants.Components;
@@ -56,9 +57,38 @@ public sealed partial class JobNetSystem : EntitySystem
         SubscribeLocalEvent<JobNetComponent, ComponentShutdown>(OnShutdown);
         SubscribeLocalEvent<JobNetComponent, OpenJobNetImplantEvent>(OnImplantActivate);
         SubscribeLocalEvent<JobNetComponent, JobNetSelectMessage>(OnSelect);
+        SubscribeLocalEvent<JobNetComponent, JobNetPurchaseMessage>(OnPurchase);
 
         InitializeUi();
     }
+
+    private void OnPurchase(EntityUid uid, JobNetComponent component, JobNetPurchaseMessage args)
+    {
+        ProtoId<NetworkLevelPrototype> currentLevel = "NetworkLevel1";
+        if (_meta.MetaRecords == null) return;
+        if (_meta.MetaRecords.TryGetRecord(Name(args.Actor), out var record) && record != null)
+        {
+            currentLevel = record.Level;
+        }
+        else return;
+        _proto.Resolve(currentLevel, out var currentProto);
+        if (currentProto == null) return;
+        if (currentProto.Next == string.Empty) return;
+        _proto.Resolve(currentProto.Next, out var nextProto);
+        if (nextProto == null) return;
+        int cost = nextProto.Cost;
+        if(_bank.TryGetBalance(args.Actor, out var balance))
+        {
+            if (cost > balance) return;
+            if(_bank.TryBankWithdraw(args.Actor, cost))
+            {
+                record.Level = nextProto.ID;
+            }
+        }
+        UpdateUserInterface(args.Actor, uid, component);
+
+    }
+
     private void OnSelect(EntityUid uid, JobNetComponent component, JobNetSelectMessage args)
     {
         var station = _station.GetStationByID(args.ID);

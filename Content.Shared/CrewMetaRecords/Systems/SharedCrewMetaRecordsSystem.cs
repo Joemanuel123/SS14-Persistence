@@ -14,7 +14,6 @@ public abstract partial class SharedCrewMetaRecordsSystem : EntitySystem
         get
         {
             var result = GetMetaRecordsComponent();
-            DebugTools.Assert(result != null, "Trying to retrieve Meta Records before it has been initialized!");
             return result;
         }
     }
