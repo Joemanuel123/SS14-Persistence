@@ -172,6 +172,8 @@ public sealed class StationModificationConsoleBoundUserInterface : BoundUserInte
         string newName = _menu.NewAssignmentNameField.Text;
         if (newName == null || newName == "") return;
         SendMessage(new StationModificationCreateAssignment(newName));
+        _menu._lastAssignmentCreated = newName;
+        _menu.NewAssignmentNameField.Text = "";
     }
 
     private void ToggleChannelAccess(ButtonToggledEventArgs args)
