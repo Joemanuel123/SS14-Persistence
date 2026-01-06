@@ -150,8 +150,11 @@
     state: coin_iron
   - type: Item
     size: Tiny
-  - type: StaticPrice
+  - type: StackPrice # Persistence: Static < Stack
     price: 75
+  - type: Stack # Persistence: Stackable coins
+    stackType: TreasureCoinIron
+    count: 1
   - type: NFCoin # Persistence: add frontier coin component so wallets can contain coins
 
 - type: entity
@@ -160,8 +163,11 @@
   components:
   - type: Sprite
     state: coin_silver
-  - type: StaticPrice
+  - type: StackPrice # Persistence: Static < Stack
     price: 125
+  - type: Stack # Persistence: Stackable coins
+    stackType: TreasureCoinSilver
+    count: 1
 
 - type: entity
   parent: TreasureCoinIron
@@ -169,8 +175,11 @@
   components:
   - type: Sprite
     state: coin_gold
-  - type: StaticPrice
+  - type: StackPrice # Persistence: Static < Stackv
     price: 175
+  - type: Stack # Persistence: Stackable coins
+    stackType: TreasureCoinGold
+    count: 1
 
 - type: entity
   parent: TreasureCoinIron
@@ -178,8 +187,11 @@
   components:
   - type: Sprite
     state: coin_adamantine
-  - type: StaticPrice
+  - type: StackPrice # Persistence: Static < Stack
     price: 250
+  - type: Stack # Persistence: Stackable coins
+    stackType: TreasureCoinAdamantine
+    count: 1
 
 - type: entity
   parent: TreasureCoinIron
@@ -187,6 +199,9 @@
   components:
   - type: Sprite
     state: coin_diamond
-  - type: StaticPrice
+  - type: StackPrice # Persistence: Static < Stack
     price: 500
+  - type: Stack # Persistence: Stackable coins
+    stackType: TreasureCoinDiamond
+    count: 1
 
