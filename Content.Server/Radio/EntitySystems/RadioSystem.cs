@@ -82,9 +82,9 @@ public sealed class RadioSystem : EntitySystem
     /// <summary>
     /// Send radio message to all active radio listeners
     /// </summary>
-    public void SendRadioMessage(EntityUid messageSource, string message, ProtoId<RadioChannelPrototype> channel, EntityUid radioSource, bool escapeMarkup = true)
+    public void SendRadioMessage(EntityUid messageSource, string message, ProtoId<RadioChannelPrototype> channel, EntityUid radioSource, bool escapeMarkup = true, bool useNetworkOverride = true)
     {
-        SendRadioMessage(messageSource, message, _prototype.Index(channel), radioSource, escapeMarkup: escapeMarkup);
+        SendRadioMessage(messageSource, message, _prototype.Index(channel), radioSource, escapeMarkup: escapeMarkup, useNetworkOverride);
     }
 
     /// <summary>
@@ -92,7 +92,7 @@ public sealed class RadioSystem : EntitySystem
     /// </summary>
     /// <param name="messageSource">Entity that spoke the message</param>
     /// <param name="radioSource">Entity that picked up the message and will send it, e.g. headset</param>
-    public void SendRadioMessage(EntityUid messageSource, string message, RadioChannelPrototype channel, EntityUid radioSource, bool escapeMarkup = true)
+    public void SendRadioMessage(EntityUid messageSource, string message, RadioChannelPrototype channel, EntityUid radioSource, bool escapeMarkup = true, bool useNetworkOverride = true)
     {
         // TODO if radios ever garble / modify messages, feedback-prevention needs to be handled better than this.
         if (!_messages.Add(message))
@@ -146,7 +146,7 @@ public sealed class RadioSystem : EntitySystem
         var sourceServerExempt = _exemptQuery.HasComp(radioSource);
 
         // Relay network
-        var useNetwork = _cfg.GetCVar(CCVars.TCommsUseNetwork);
+        var useNetwork = _cfg.GetCVar(CCVars.TCommsUseNetwork) && useNetworkOverride;
         NetworkGraph? network = null;
         NetworkNode? transmitterNode = null;
         if (useNetwork)
