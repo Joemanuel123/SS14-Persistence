@@ -571,8 +571,8 @@ public sealed partial class CargoSystem
         if (!Resolve(uid, ref component))
             return false;
 
-        if (component.Bounties.Count >= component.MaxBounties)
-            return false;
+ //       if (component.Bounties.Count >= component.MaxBounties)
+ //           return false;
 
         _nameIdentifier.GenerateUniqueName(uid, BountyNameIdentifierGroup, out var randomVal);
         var newBounty = new CargoBountyData(bounty, randomVal);

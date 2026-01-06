@@ -1,5 +1,6 @@
 using Content.Server._NF.Bank;
 using Content.Server.Access.Systems;
+using Content.Server.Cargo.Components;
 using Content.Server.Chat.Systems;
 using Content.Server.Containers;
 using Content.Server.CrewRecords.Systems;
@@ -14,6 +15,7 @@ using Content.Shared.Administration;
 using Content.Shared.Administration.Logs;
 using Content.Shared.Cargo;
 using Content.Shared.Cargo.Components;
+using Content.Shared.Cargo.Events;
 using Content.Shared.Chat;
 using Content.Shared.Construction;
 using Content.Shared.Containers.ItemSlots;
@@ -73,6 +75,7 @@ public sealed class InvoicePrinterConsoleSystem : SharedInvoicePrinterConsoleSys
     public override void Initialize()
     {
         base.Initialize();
+        SubscribeLocalEvent<InvoicePrinterConsoleComponent, InvoicePrinterStationSelectMessage>(OnSelectStation);
         SubscribeLocalEvent<InvoicePrinterConsoleComponent, PrintInvoice>(Print);
         SubscribeLocalEvent<InvoicePrinterConsoleComponent, ChangeInvoiceMode>(ToggleMode);
         SubscribeLocalEvent<InvoicePrinterConsoleComponent, ComponentStartup>(UpdateUserInterface);
@@ -91,6 +94,12 @@ public sealed class InvoicePrinterConsoleSystem : SharedInvoicePrinterConsoleSys
 
     }
 
+    private void OnSelectStation(EntityUid uid, InvoicePrinterConsoleComponent component, InvoicePrinterStationSelectMessage args)
+    {
+        component.SelectedStation = args.Target;
+        UpdateUserInterface(uid, component, args);
+    }
+
     private void Print(EntityUid uid, InvoicePrinterConsoleComponent component, PrintInvoice args)
     {
         var privilegedIdName = string.Empty;
@@ -103,27 +112,29 @@ public sealed class InvoicePrinterConsoleSystem : SharedInvoicePrinterConsoleSys
         string? targetPerson = null;
         if(component.StationMode)
         {
-            var station = _station.GetOwningStation(uid);
-            if (station == null) return;
-            if (TryComp<StationDataComponent>(station, out var sD) && sD != null)
+            var printingStation = _station.GetStationByID(component.SelectedStation);
+            if (printingStation == null) return;
+            if (!TryComp<StationDataComponent>(printingStation, out var printingData) || printingData == null) return;
+            if (printingData.StationName == null) return;
+            privilegedName = printingData.StationName;
+            targetStation = printingData.UID;
+            var taxingStation = _station.GetOwningStation(uid, null, true);
+            if (taxingStation == null) return;
+            if (TryComp<StationDataComponent>(taxingStation, out var sD) && sD != null)
             {
                 taxRate = sD.SalesTax;
                 if (component.StationMode)
                 {
-                    privilegedName = sD.StationName;
                     owningStation = sD.UID;
-                    targetStation = sD.UID;
                 }
             }
-
-
         }
         else
         {
-            var station = _station.GetOwningStation(uid);
-            if (station != null)
+            var taxingStation = _station.GetOwningStation(uid, null, true);
+            if (taxingStation != null)
             {
-                if (TryComp<StationDataComponent>(station, out var sD) && sD != null)
+                if (TryComp<StationDataComponent>(taxingStation, out var sD) && sD != null)
                 {
                     taxRate = sD.SalesTax;
                     owningStation = sD.UID;
@@ -155,7 +166,7 @@ public sealed class InvoicePrinterConsoleSystem : SharedInvoicePrinterConsoleSys
             invoiceComp.InvoiceReason = args.InvoiceReason;
             invoiceComp.TaxOwner = owningStation;
             Dirty(invoice, invoiceComp);
-            _audio.PlayEntity(component.PrintSound, args.Actor, invoice);
+            _audio.PlayEntity(component.PrintSound, args.Actor, uid);
         }
         UpdateUserInterface(uid, component, args);
     }
@@ -183,24 +194,55 @@ public sealed class InvoicePrinterConsoleSystem : SharedInvoicePrinterConsoleSys
             }
 
         }
-        var station = _station.GetOwningStation(uid);
-        if(station != null)
+        var taxStation = _station.GetOwningStation(uid, null, true);
+        int taxingStation = 0;
+        string taxingName = "Unknown";
+        if(taxStation != null)
         {
-            if(TryComp<StationDataComponent>(station, out var sD) && sD != null)
+            if(TryComp<StationDataComponent>(taxStation, out var sD) && sD != null)
             {
+                taxingStation = sD.UID;
                 taxRate = sD.SalesTax;
-                if (component.StationMode)
+                if(sD.StationName != null)
                 {
-                    privilegedName = sD.StationName;
+                    taxingName = sD.StationName;
                 }
             }
             else
             {
                 component.StationMode = false;
             }
-
         }
-        InvoicePrinterConsoleBoundUserInterfaceState newState = new(idPresent, privilegedIdName, privilegedName, component.StationMode, taxRate);
+        List<EntityUid> possibleStations = new();
+        Dictionary<int, string> formattedStations = new();
+        if (privilegedName != string.Empty && privilegedName != null)
+        {
+            possibleStations = _station.GetStationsAvailableTo(privilegedName);
+        }
+        foreach (var station in possibleStations)
+        {
+            if (TryComp<StationDataComponent>(station, out var data) && data != null)
+            {
+                if (data.StationName != null)
+                {
+                    formattedStations.Add(data.UID, data.StationName);
+                }
+            }
+        }
+        var selectedName = "None";
+        if (component.SelectedStation != 0)
+        {
+            var selectedStation = _station.GetStationByID(component.SelectedStation);
+            if (selectedStation != null)
+            {
+                if (TryComp<StationDataComponent>(selectedStation, out var selectedData) && selectedData != null)
+                {
+                    if(selectedData.StationName != null)
+                        selectedName = selectedData.StationName;
+                }
+            }
+        }
+        InvoicePrinterConsoleBoundUserInterfaceState newState = new(idPresent, privilegedIdName, privilegedName, component.StationMode, taxRate, taxingStation, taxingName, component.SelectedStation, formattedStations, selectedName);
         _userInterface.SetUiState(uid, InvoicePrinterConsoleUiKey.Key, newState);
     }
 
@@ -281,7 +323,7 @@ public sealed class InvoicePrinterConsoleSystem : SharedInvoicePrinterConsoleSys
                         }
                     }
                 }
-                
+
             }
             if (TryComp<StationDataComponent>(station, out var sD) && sD != null)
             {
@@ -330,7 +372,7 @@ public sealed class InvoicePrinterConsoleSystem : SharedInvoicePrinterConsoleSys
 
                 _cargo.UpdateBankAccount((station.Value, stationBank), -cost, "Cargo");
                 if(taxAmount > 0 && taxStation != null)
-                { 
+                {
                     if(TryComp<StationBankAccountComponent>(taxStation, out var taxBank))
                     {
                         _cargo.UpdateBankAccount((taxStation.Value, taxBank), taxAmount, "Cargo");
@@ -404,7 +446,7 @@ public sealed class InvoicePrinterConsoleSystem : SharedInvoicePrinterConsoleSys
             }
             component.Paid = true;
             component.PaidBy = userName;
-            _audio.PlayEntity(component.ErrorSound, args.Actor, uid);
+            _audio.PlayEntity(component.PaySuccessSound, args.Actor, uid);
             _appearance.SetData(uid, PaperVisuals.Invoice, "paid");
             if (component.TargetStation != null)
             {

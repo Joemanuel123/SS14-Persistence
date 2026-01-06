@@ -10,6 +10,7 @@ using Robust.Client.UserInterface.CustomControls;
 using Robust.Client.UserInterface.XAML;
 using Robust.Shared.Configuration;
 using Robust.Shared.Prototypes;
+using Robust.Shared.Utility;
 using System.Linq;
 
 namespace Content.Client.Invoices.UI
@@ -34,8 +35,8 @@ namespace Content.Client.Invoices.UI
 
             PrintButton.OnPressed += _ => Print();
 
-            ChangeModeBtn.OnPressed += _ => ChangeMode();
-
+            ChangeModeStation.OnPressed += _ => ChangeMode();
+            ChangeModePersonal.OnPressed += _ => ChangeMode();
 
         }
 
@@ -44,30 +45,69 @@ namespace Content.Client.Invoices.UI
             PrivilegedIdButton.Text = state.IdPresent
                 ? Loc.GetString("id-card-console-window-eject-button")
                 : Loc.GetString("id-card-console-window-insert-button");
-
-            PrivilegedIdLabel.Text = state.IdName;
+            TaxDetails.Visible = true;
+            if (state.IdName != null)
+            {
+                PrivilegedIdButton.Text = state.IdName;
+            }
+            
             if (state.StationMode)
             {
-                ChangeModeBtn.Text = "Personal";
-                TaxDetails.Visible = false;
+                PossibleStations.Visible = true;
+                if(state.SelectedStation != 0 && state.SelectedStation == state.TaxingStation)
+                {
+                    TaxDetails.Visible = false;
+                }
+                ChangeModeStation.Pressed = true;
+                ChangeModePersonal.Pressed = false;
+                TargetAccountLabel.Text = state.SelectedName;
+                if(state.SelectedStation == 0)
+                {
+                    PrintButton.Disabled = true;
+                }
+                else
+                {
+                    PrintButton.Disabled = false;
+                }
             }
             else
             {
-                ChangeModeBtn.Text = "Station";
-                TaxDetails.Visible = true;
+                PossibleStations.Visible = false;
+                ChangeModeStation.Pressed = false;
+                ChangeModePersonal.Pressed = true;
+                TargetAccountLabel.Text = state.TargetName;
+                if(state.TargetName == null || state.TargetName == string.Empty)
+                {
+                    PrintButton.Disabled = true;
+                }
+                else
+                {
+                    PrintButton.Disabled = false;
+                }
             }
-            TargetAccountLabel.Text = state.TargetName;
+
+            if(state.TaxRate < 1)
+            {
+                TaxDetails.Visible = false;
+            }
+            TaxingAccountLabel.Text = state.TaxingName;
             TaxRateLabel.Text = $"Sales Tax: {state.TaxRate}%";
+            PossibleStations.Clear();
+            PossibleStations.AddItem("Select Faction");
+            foreach (var kv in state.FormattedStations)
+            {
+                PossibleStations.AddItem(kv.Value, kv.Key);
+            }
 
 
         }
         public void Print()
         {
-            var invoiceReason = ReasonLineEdit.Text;
+            var invoiceReason = Rope.Collapse(ReasonLineEdit.TextRope);
             var invoiceCost = CostSpinBox.Value;
             if (invoiceCost < 1) return;
             _owner.SendMessage(new PrintInvoice(invoiceReason, invoiceCost));
-            ReasonLineEdit.Text = "";
+            ReasonLineEdit.TextRope = new Rope.Leaf("");
             CostSpinBox.Value = 0;
             Close();
 

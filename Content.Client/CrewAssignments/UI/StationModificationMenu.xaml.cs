@@ -35,6 +35,7 @@ namespace Content.Client.CrewAssignments.UI
         private EntityUid? _station;
         private int? _lastAssignmentSelected;
         private int? _lastChannelSelected;
+        public string? _lastAssignmentCreated;
         Dictionary<string, CrewAccess>? _accesses;
         Dictionary<int, CrewAssignment>? _assignments;
         public Dictionary<ProtoId<RadioChannelPrototype>, FactionRadioData>? RadioData;
@@ -211,6 +212,7 @@ namespace Content.Client.CrewAssignments.UI
             foreach (var owner in assignments)
             {
                 PossibleAssignments.AddItem(owner.Value.Name, owner.Key);
+                if (_lastAssignmentCreated == owner.Value.Name) _lastAssignmentSelected = owner.Key;
             }
             if(_lastAssignmentSelected != null)
             {

@@ -841,6 +841,7 @@
     - map: [ "enum.WiresVisualLayers.MaintenancePanel" ]
       state: generic_panel_open
   - type: RadarConsole
+    maxRange: 512
   - type: ActivatableUI
     key: enum.RadarConsoleUiKey.Key
   - type: UserInterface

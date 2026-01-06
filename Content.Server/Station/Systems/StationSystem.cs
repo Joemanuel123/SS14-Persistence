@@ -65,6 +65,8 @@ public sealed partial class StationSystem : SharedStationSystem
         SubscribeLocalEvent<StationDataComponent, ComponentShutdown>(OnStationDeleted);
         SubscribeLocalEvent<StationMemberComponent, ComponentShutdown>(OnStationGridDeleted);
         SubscribeLocalEvent<StationMemberComponent, PostGridSplitEvent>(OnStationSplitEvent);
+        SubscribeLocalEvent<StationMemberComponent, ComponentStartup>(OnStationMemberStartup);
+
 
         SubscribeLocalEvent<StationGridAddedEvent>(OnStationGridAdded);
         SubscribeLocalEvent<StationGridRemovedEvent>(OnStationGridRemoved);
@@ -95,12 +97,12 @@ public sealed partial class StationSystem : SharedStationSystem
         var query = _entManager.AllEntityQueryEnumerator<StationMemberComponent, MapGridComponent>();
         while (query.MoveNext(out var gridUid, out var member, out var mapgrid))
         {
-            if(member.Station == uid)
+            if (member.Station == uid)
             {
                 var tiles = _mapSystem.GetAllTiles(gridUid, mapgrid).Count();
                 count += tiles;
             }
-            
+
         }
         return count;
     }
@@ -161,6 +163,18 @@ public sealed partial class StationSystem : SharedStationSystem
 
     #region Event handlers
 
+    private void OnStationMemberStartup(EntityUid uid, StationMemberComponent component, ComponentStartup args)
+    {
+        if (component.StationUID != null)
+        {
+            var station = GetStationByID(component.StationUID.Value);
+            if (station != null)
+            {
+                component.Station = station.Value;
+            }
+        }
+    }
+
     private void OnStationAdd(EntityUid uid, StationDataComponent component, ComponentStartup args)
     {
         RaiseNetworkEvent(new StationsUpdatedEvent(GetStationNames()), Filter.Broadcast());
@@ -178,7 +192,7 @@ public sealed partial class StationSystem : SharedStationSystem
         {
             var stations = EntityManager.AllComponents<StationDataComponent>();
             int tryUID = 1;
-            while(component.UID == 0)
+            while (component.UID == 0)
             {
                 bool success = true;
                 foreach (var station in stations)
@@ -190,16 +204,14 @@ public sealed partial class StationSystem : SharedStationSystem
                         break;
                     }
                 }
-                if(success) component.UID = tryUID;
+                if (success) component.UID = tryUID;
             }
         }
-        if(_metaRecords.MetaRecords != null)
+
+        _metaRecords.EnsureMetaRecordsAction((metaRecords) =>
         {
-            if(!_metaRecords.MetaRecords.Stations.ContainsKey(component.UID))
-            {
-                _metaRecords.MetaRecords.Stations.Add(component.UID, uid);
-            }
-        }
+            metaRecords.Stations.TryAdd(component.UID, uid);
+        });
     }
 
     private void OnStationDeleted(EntityUid uid, StationDataComponent component, ComponentShutdown args)
@@ -388,7 +400,7 @@ public sealed partial class StationSystem : SharedStationSystem
         // Use overrides for setup.
         var station = EntityManager.SpawnEntity(stationConfig.StationPrototype, MapCoordinates.Nullspace, stationConfig.StationComponentOverrides);
         DebugTools.Assert(HasComp<StationDataComponent>(station), "Stations should have StationData in their prototype.");
-        
+
         var data = Comp<StationDataComponent>(station);
         if (name is not null && data.StationName is null)
             RenameStation(station, name, false);
@@ -429,6 +441,7 @@ public sealed partial class StationSystem : SharedStationSystem
 
         var stationMember = EnsureComp<StationMemberComponent>(mapGrid);
         stationMember.Station = station;
+        stationMember.StationUID = stationData.UID;
         stationData.Grids.Add(mapGrid);
         Dirty(station, stationData);
         Dirty(mapGrid, stationMember);
@@ -506,7 +519,7 @@ public sealed partial class StationSystem : SharedStationSystem
 
         var oldName = metaData.EntityName;
         _metaData.SetEntityName(station, name, metaData);
-        if (EntityManager.TryGetComponent<StationDataComponent>(station,out var data))
+        if (EntityManager.TryGetComponent<StationDataComponent>(station, out var data))
         {
             data.StationName = name;
         }

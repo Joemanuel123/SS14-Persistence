@@ -69,6 +69,9 @@
     <Compile Update="CrewAssignments\UI\CodexEntryMenu.xaml.cs">
       <DependentUpon>CodexEntryMenu.xaml</DependentUpon>
     </Compile>
+    <Compile Update="AcceptDeath\AcceptDeathMenu.xaml.cs">
+      <DependentUpon>AcceptDeathMenu.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Update="Access\UI\IdPrinterConsoleWindow.xaml" />
