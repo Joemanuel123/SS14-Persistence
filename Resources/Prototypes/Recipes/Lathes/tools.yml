@@ -197,6 +197,13 @@
 
 - type: latheRecipe
   parent: BaseToolRecipe
+  id: ToolboxMechanical
+  result: ToolboxMechanical
+  materials:
+    Steel: 600
+
+- type: latheRecipe
+  parent: BaseToolRecipe
   id: WelderExperimental
   result: WelderExperimental
   completetime: 6
