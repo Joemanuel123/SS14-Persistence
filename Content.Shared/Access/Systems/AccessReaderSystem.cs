@@ -310,9 +310,11 @@ public sealed class AccessReaderSystem : EntitySystem
         }
         else
         {
-            if (reader.AccessNames.Count < 1) return true;
             var station = _station.GetOwningStation(target);
             if (station == null) return true;
+            if (reader.AccessNames.Count < 1) return true;
+            var accesses = _station.GetValidAccesses(reader.AccessNames, station.Value);
+            if (accesses.Count < 1) return true;
             string? actorName = null;
             var accessSources = FindPotentialAccessItems(user);
             foreach (var source in accessSources)
@@ -360,32 +362,18 @@ public sealed class AccessReaderSystem : EntitySystem
                 }
                 if (record == null)
                 {
-                    bool foundValid = false;
-                    foreach (var access1 in reader.AccessNames)
-                    {
-                        if (crewAccesses.CrewAccesses.ContainsKey(access1)) foundValid = true;
-                    }
-                    if (!foundValid) return true;
+                    return false;
                 }
                 else
                 {
-                    if (stationData != null)
+                    foreach (var access1 in accesses)
                     {
-                        if (!stationData.TryGetAssignment(record.AssignmentID, out var assignment) || assignment == null) return false;
-
-                        bool foundValid = false;
-                        foreach (var access1 in reader.AccessNames)
+                        if (assignment.AccessIDs.Contains(access1))
                         {
-                            if (crewAccesses.CrewAccesses.ContainsKey(access1)) foundValid = true;
-                            if (crewAccesses.CrewAccesses.ContainsKey(access1) && assignment.AccessIDs.Contains(access1))
-                            {
-                                return true;
-                            }
+                            return true;
                         }
-                        if (!foundValid) return true;
                     }
                 }
-                
                 return false;
             }
         }

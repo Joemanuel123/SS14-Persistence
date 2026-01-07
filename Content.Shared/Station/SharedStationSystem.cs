@@ -1,3 +1,4 @@
+using Content.Shared.CrewAccesses.Components;
 using Content.Shared.CrewAssignments.Components;
 using Content.Shared.CrewRecords.Components;
 using Content.Shared.GridControl.Components;
@@ -28,6 +29,21 @@ public abstract partial class SharedStationSystem : EntitySystem
         _stationMemberQuery = GetEntityQuery<StationMemberComponent>();
     }
 
+    public List<string> GetValidAccesses(List<string> baseAccess, EntityUid station)
+    {
+        List<string> final = new();
+        if(TryComp<CrewAccessesComponent>(station, out var accessComp) && accessComp != null)
+        {
+            foreach (var access in baseAccess)
+            {
+                if (accessComp.CrewAccesses.ContainsKey(access))
+                {
+                    final.Add(access);
+                }
+            }
+        }
+        return final;
+    }
     public bool IsOwner(string userName, EntityUid station)
     {
         if (TryComp<StationDataComponent>(station, out var sD) && sD != null)
