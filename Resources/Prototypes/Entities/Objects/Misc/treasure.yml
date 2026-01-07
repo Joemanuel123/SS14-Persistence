@@ -18,6 +18,8 @@
     color: "#0000ff"
   - type: StaticPrice
     price: 500
+  - type: Tag
+    tags: [ TreasureDataDisk ]
 
 - type: entity
   parent: BaseItem
@@ -40,6 +42,8 @@
         harddisk_micro: ""
   - type: StaticPrice
     price: 275
+  - type: Tag
+    tags: [ TreasureOldComputer ]
 
 - type: entity
   parent: BaseItem
@@ -55,6 +59,8 @@
     storedRotation: -90
   - type: StaticPrice
     price: 350
+  - type: Tag
+    tags: [ TreasureOldComputer ]
 
 - type: entity
   parent: BaseItem
@@ -70,6 +76,8 @@
     storedRotation: -90
   - type: StaticPrice
     price: 300
+  - type: Tag
+    tags: [ TreasureOldComputer ]
 
 - type: entity
   parent: BaseItem
@@ -85,6 +93,8 @@
     size: Tiny
   - type: StaticPrice
     price: 750
+  - type: Tag
+    tags: [ TreasureOldCPU ]
 
 - type: entity
   parent: BaseItem
@@ -108,6 +118,8 @@
         stabilizer: ""
   - type: StaticPrice
     price: 120
+  - type: Tag
+    tags: [ TreasureSampleTube ]
 
 - type: entityTable
   id: TreasureCoinPile

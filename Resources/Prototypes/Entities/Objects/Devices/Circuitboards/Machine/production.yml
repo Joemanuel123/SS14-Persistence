@@ -346,7 +346,8 @@
         Cable: 1
         Glass: 1
     - type: Tag
-      id: ApeCircuitboard
+      tags:
+      - ApeCircuitboard
 
 - type: entity
   id: ThermomachineFreezerMachineCircuitBoard
@@ -1038,7 +1039,7 @@
         CableHV: 5
         Manipulator: 2
         Steel: 10
-        
+
 - type: entity
   id: TrappedFluidExtractorMachineCircuitboard
   parent: BaseMachineCircuitboard
