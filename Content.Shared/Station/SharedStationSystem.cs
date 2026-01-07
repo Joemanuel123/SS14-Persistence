@@ -39,6 +39,26 @@ public abstract partial class SharedStationSystem : EntitySystem
         }
         return false;
     }
+
+    public bool HasRecord(string userName, EntityUid station)
+    {
+        if (TryComp<StationDataComponent>(station, out var sD) && sD != null)
+        {
+            if (sD.Owners.Contains(userName))
+            {
+                return true;
+            }
+        }
+        if (TryComp<CrewRecordsComponent>(station, out var crewRecords) && crewRecords != null)
+        {
+            crewRecords.TryGetRecord(userName, out var crewRecord);
+            if (crewRecord != null)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
     public bool CanSpend(string userName, EntityUid station, int toSpend = 0)
     {
         if (TryComp<StationDataComponent>(station, out var sD) && sD != null)
