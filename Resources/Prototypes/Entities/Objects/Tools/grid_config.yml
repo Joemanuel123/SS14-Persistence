@@ -164,6 +164,9 @@
       singleUser: true
     - type: PaperVisuals
     - type: Appearance
+    - type: Tag
+      tags:
+      - Document
 
 - type: entity
   parent: BaseItem
