@@ -86,24 +86,28 @@
   id: ShuttleGunSvalinnMachineGunCircuitboard
   result: ShuttleGunSvalinnMachineGunCircuitboard
   completetime: 6
+  unlockUses: 2
 
 - type: latheRecipe
   parent: [ BaseGoldCircuitboardRecipe, BaseMachineRecipeCategory ]
   id: ShuttleGunPerforatorCircuitboard
   result: ShuttleGunPerforatorCircuitboard
   completetime: 10
+  unlockUses: 2
 
 - type: latheRecipe
   parent: [ BaseGoldCircuitboardRecipe, BaseMachineRecipeCategory ]
   id: ShuttleGunFriendshipCircuitboard
   result: ShuttleGunFriendshipCircuitboard
   completetime: 8
+  unlockUses: 2
 
 - type: latheRecipe
   parent: [ BaseGoldCircuitboardRecipe, BaseMachineRecipeCategory ]
   id: ShuttleGunDusterCircuitboard
   result: ShuttleGunDusterCircuitboard
   completetime: 12
+  unlockUses: 1
 
 ## Circuit imprinter
 
