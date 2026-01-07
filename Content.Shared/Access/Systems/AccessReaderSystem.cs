@@ -366,14 +366,19 @@ public sealed class AccessReaderSystem : EntitySystem
                 }
                 else
                 {
-                    foreach (var access1 in accesses)
+                    if (stationData != null)
                     {
-                        if (assignment.AccessIDs.Contains(access1))
+                        if (!stationData.TryGetAssignment(record.AssignmentID, out var assignment) || assignment == null) return false;
+                        foreach (var access1 in accesses)
                         {
-                            return true;
+                            if (assignment.AccessIDs.Contains(access1))
+                            {
+                                return true;
+                            }
                         }
                     }
                 }
+                
                 return false;
             }
         }
