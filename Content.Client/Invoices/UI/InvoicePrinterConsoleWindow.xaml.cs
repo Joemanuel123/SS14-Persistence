@@ -77,12 +77,14 @@ namespace Content.Client.Invoices.UI
                     ChangeModeInvoice.Pressed = true;
                     ChangeModePayslip.Pressed = false;
                     InvoiceModeLabel.Text = $"An invoice paid to {state.SelectedName} by the reciever.";
+                    PrintButton.Text = "Print Invoice";
                 }
                 else
                 {
                     ChangeModeInvoice.Pressed = false;
                     ChangeModePayslip.Pressed = true;
                     InvoiceModeLabel.Text = $"A payslip paid by {state.SelectedName} and deposited by the reciever.";
+                    PrintButton.Text = "Pay & Print Payslip";
                 }
             }
             else
