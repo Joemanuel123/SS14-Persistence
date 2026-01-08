@@ -45,6 +45,6 @@ public sealed partial class FactionLevelPrototype : IPrototype
     /// What StationLevel is the next available to purchase
     /// </summary>
     [DataField]
-    public ProtoId<FactionLevelPrototype> Next = string.Empty;
+    public ProtoId<FactionLevelPrototype>? Next = null;
 
 }
