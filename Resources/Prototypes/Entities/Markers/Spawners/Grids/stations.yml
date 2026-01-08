@@ -29,7 +29,7 @@
 #    - sprite: Objects/Materials/Scrap/generic.rsi
 #      state: metal-1
 #  - type: GridSpawner
-#    gridPath: Maps/Shuttles/trading_outpost.yml
+#    gridPath: /Maps/Shuttles/trading_outpost.yml
 #    stationGrid: True
 #    addComponents:
 #      - type: ProtectedGrid
@@ -59,7 +59,7 @@
     - sprite: Objects/Materials/Scrap/generic.rsi
       state: metal-1
   - type: GridSpawner
-    gridPath: Maps/Shuttles/trading_outpost_science.yml
+    gridPath: /Maps/Shuttles/trading_outpost_science.yml
     stationGrid: True
     addComponents:
       - type: ProtectedGrid
@@ -89,7 +89,7 @@
     - sprite: Objects/Materials/Scrap/generic.rsi
       state: metal-1
   - type: GridSpawner
-    gridPath: Maps/Shuttles/trading_outpost_hunter.yml
+    gridPath: /Maps/Shuttles/trading_outpost_hunter.yml
     stationGrid: True
     addComponents:
       - type: ProtectedGrid
@@ -119,7 +119,7 @@
     - sprite: Objects/Materials/Scrap/generic.rsi
       state: metal-1
   - type: GridSpawner
-    gridPath: Maps/Shuttles/trading_outpost_engineering.yml
+    gridPath: /Maps/Shuttles/trading_outpost_engineering.yml
     stationGrid: True
     addComponents:
       - type: ProtectedGrid
@@ -148,7 +148,7 @@
     - sprite: Objects/Materials/Scrap/generic.rsi
       state: metal-1
   - type: GridSpawner
-    gridPath: Maps/Shuttles/trading_outpost_explore.yml
+    gridPath: /Maps/Shuttles/trading_outpost_explore.yml
     stationGrid: True
     addComponents:
       - type: ProtectedGrid
