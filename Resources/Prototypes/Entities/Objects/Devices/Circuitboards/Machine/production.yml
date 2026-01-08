@@ -1045,6 +1045,19 @@
         Steel: 6
 
 - type: entity
+  id: ShredderMachineCircuitboard
+  parent: BaseMachineCircuitboard
+  name: shredder machine board
+  components:
+  - type: Sprite
+    state: supply
+  - type: MachineBoard
+    prototype: Shredder
+    stackRequirements:
+      Manipulator: 2
+      Steel: 4
+
+- type: entity
   id: MCTNMachineCircuitboard
   parent: BaseMachineCircuitboard
   name: multi-channel transfer node machine board

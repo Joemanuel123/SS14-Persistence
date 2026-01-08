@@ -151,7 +151,7 @@
       sprite: Objects/Misc/bureaucracy.rsi
       state: invoiceunpaid
     - type: Item
-      size: Small
+      size: Tiny
     - type: Invoice
     - type: UserInterface
       interfaces:
@@ -164,6 +164,9 @@
       singleUser: true
     - type: PaperVisuals
     - type: Appearance
+    - type: Tag
+      tags:
+      - Document
 
 - type: entity
   parent: BaseItem
