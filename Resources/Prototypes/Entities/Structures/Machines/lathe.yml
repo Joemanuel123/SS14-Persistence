@@ -207,6 +207,7 @@
     - Janitor
     - Instruments
     - Equipment
+    - Hardsuits
   - type: EmagLatheRecipes
     emagDynamicPacks:
     - SecurityAmmo

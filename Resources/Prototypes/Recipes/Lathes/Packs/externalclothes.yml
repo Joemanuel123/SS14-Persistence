@@ -1,0 +1,14 @@
+- type: latheRecipePack
+  id: Hardsuits
+  recipes:
+  - Spationautsuit
+  - EVAsuit
+  - EVAsuitHelmet
+  - Engineeringsuit
+  - Atmossuit
+  - Miningsuit
+  - Luxuryminingsuit
+  - Researchdirectorsuit
+  - Chiefmedicalsuit
+  - Chiefengineersuit
+  - Captainsuit

@@ -21,6 +21,9 @@ research-technology-bluespace-storage = Bluespace Storage
 research-technology-optimized-microgalvanism = Optimized Microgalvanism
 research-technology-space-scanning = Space Scanning
 research-technology-excavation = Mass Excavation
+research-technology-eva-manufacturing = EVA Manufacturing
+research-technology-specialized-eva = EVA Specialization
+research-technology-luxury-eva = Luxury EVA Manufacturing
 
 research-technology-salvage-weapons = Salvage Weapons
 research-technology-draconic-munitions = Draconic Munitions
