@@ -9,6 +9,18 @@
   - Miningsuit
   - Luxuryminingsuit
   - Researchdirectorsuit
-  - Chiefmedicalsuit
   - Chiefengineersuit
   - Captainsuit
+
+- type: latheRecipePack
+  id: SecurityHardsuits
+  recipes:
+  - Securityhardsuit
+  - Brigmedichardsuit
+  - Wardensecurityhardsuit
+  - Headofsecurityhardsuit
+
+- type: latheRecipePack
+  id: MedicalHardsuits
+  recipes:
+  - Chiefmedicalsuit

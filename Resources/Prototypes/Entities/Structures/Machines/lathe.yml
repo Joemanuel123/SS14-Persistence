@@ -396,6 +396,7 @@
     - SecurityAmmo
     - SecurityWeapons
     - SecurityDisablers
+    - SecurityHardsuits
   - type: EmagLatheRecipes
     emagStaticPacks:
     - SyndicateAmmoStatic
@@ -469,6 +470,7 @@
     - EmptyMedkitsStatic
     - SurgeryStatic
     dynamicPacks:
+    - MedicalHardsuits
     - Chemistry
   - type: Machine
     board: MedicalTechFabCircuitboard

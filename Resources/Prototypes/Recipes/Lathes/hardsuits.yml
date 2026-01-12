@@ -159,3 +159,64 @@
     Glass: 500
   unlockUses: 1
   completetime: 30
+
+# Security Hardsuits
+
+- type: latheRecipe
+  parent: BaseHardsuitRecipe
+  id: Securityhardsuit
+  result: ClothingOuterHardsuitSecurity
+  materials:
+    Plasteel: 2000
+    Durathread: 1500
+    Glass: 500
+    Uranium: 500
+    Silver: 300
+    Gold: 300
+  unlockUses: 2
+  completetime: 15
+
+- type: latheRecipe
+  parent: BaseHardsuitRecipe
+  id: Brigmedichardsuit
+  result: ClothingOuterHardsuitBrigmedic
+  materials:
+    Plasteel: 2000
+    Durathread: 1500
+    Glass: 500
+    Silver: 500
+    Gold: 500
+  unlockUses: 2
+  completetime: 15
+
+- type: latheRecipe
+  parent: BaseHardsuitRecipe
+  id: Wardensecurityhardsuit
+  result: ClothingOuterHardsuitWarden
+  materials:
+    Plasteel: 2000
+    Durathread: 1500
+    Silver: 1000
+    Gold: 1000
+    Glass: 500
+    Uranium: 500
+    Plasma: 500
+    Diamond: 300
+  unlockUses: 1
+  completetime: 30
+
+- type: latheRecipe
+  parent: BaseHardsuitRecipe
+  id: Headofsecurityhardsuit
+  result: ClothingOuterHardsuitSecurityRed
+  materials:
+    Plasteel: 3000
+    Durathread: 1500
+    Uranium: 750
+    Gold: 500
+    Silver: 500
+    Diamond: 500
+    Plasma: 500
+    Glass: 500
+  unlockUses: 1
+  completetime: 30
