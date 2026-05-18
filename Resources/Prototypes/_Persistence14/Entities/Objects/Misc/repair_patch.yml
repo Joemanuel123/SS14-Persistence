@@ -1,0 +1,9 @@
+- type: entity
+  name: repair patch
+  parent: BaseItem
+  id: RepairPatch
+  components:
+  - type: Sprite
+    sprite: _Persistence14/Objects/Specific/Engineering/repair_patch.rsi
+    layers:
+      - state: patch1
