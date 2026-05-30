@@ -1109,18 +1109,16 @@
     fx: EffectRCDDeconstruct8
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
-        damage: 400
+    - trigger: !type:DamageTrigger
+        damage: 600
       behaviors:
       - !type:DoActsBehavior
-        acts: ["Destruction"]
+        acts: [ "Destruction" ]
       - !type:PlaySoundBehavior
         sound:
           collection: MetalSlam
-    - trigger:
-        !type:DamageTrigger
-        damage: 200
+    - trigger: !type:DamageTrigger
+        damage: 300
       behaviors:
       - !type:PlaySoundBehavior
         sound:
@@ -1128,10 +1126,27 @@
       - !type:ChangeConstructionNodeBehavior
         node: girder
       - !type:DoActsBehavior
-        acts: ["Destruction"]
+        acts: [ "Destruction" ]
   - type: IconSmooth
     key: walls
     base: solid
+
+- type: entity
+  id: DamagedSolidWall
+  parent: WallSolid
+  name: damaged solid wall
+  components:
+  - type: Sprite
+    sprite: _Persistence14/Structures/walldamage.rsi
+  - type: ExaminableDamage
+    messages: WindowMessages
+  - type: Repairable
+    doAfterDelay: 10
+    fuelCost: 6
+  - type: IconSmooth
+    key: state
+    base: full
+
 
 - type: entity
   parent: WallDiagonalBase
