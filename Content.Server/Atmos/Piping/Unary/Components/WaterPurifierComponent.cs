@@ -38,4 +38,7 @@ public sealed partial class WaterPurifierComponent : Component
     /// </remarks>
     [DataField, ViewVariables(VVAccess.ReadWrite)]
     public float MolesToReagentMultiplier = 0.2137f;
+
+    [DataField, ViewVariables(VVAccess.ReadWrite)]
+    public float GasToReagentPerSecond = 10f; // 10u of water added per second
 }

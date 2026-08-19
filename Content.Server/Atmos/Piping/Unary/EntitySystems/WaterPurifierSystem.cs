@@ -48,45 +48,26 @@ public sealed class WaterPurifierSystem : EntitySystem
         if (waterMolesAvailable <= 0)
             return;
 
-        // If the gas has no reagent equivalent, it stops
-        if (_atmosphereSystem.GetGas(Gas.WaterVapor).Reagent is not { } waterReagent)
+        var waterMolesToConvert = MathF.Min(entity.Comp.GasToReagentPerSecond * args.dt, waterMolesAvailable);
+        if (waterMolesToConvert <= 0)
             return;
 
-        // If I understand this correctly, GasMixture makes a lil false gas container, same vol and temp of the inlet pipe, but with only the waper vapor
-        var waterMix = new GasMixture(inlet.Air.Volume) { Temperature = inlet.Air.Temperature };
-        waterMix.SetMoles(Gas.WaterVapor, waterMolesAvailable);
-
-        // moles of water vapor can be converted this game-tick
-        var waterMolesToConvert = NumberOfMolesToConvert(receiver, waterMix, args.dt);
-
-        // safety check to never condense more water vapor than the amount in the pipes
-        var checkwaterMolesToConvert = MathF.Min(waterMolesToConvert, waterMolesAvailable);
-        if (checkwaterMolesToConvert <= 0)
-            return;
-
-        // how much water reagent units the water vapor becomes
-        var moleToReagentMultiplier = entity.Comp.MolesToReagentMultiplier;
-
-        // Limits the amount added to the available space in the chem container
-        var amount = FixedPoint2.Min(FixedPoint2.New(checkwaterMolesToConvert * moleToReagentMultiplier), solution.AvailableVolume);
+        // Limits the amount added to the available space in the container
+        var amount = FixedPoint2.Min(waterMolesToConvert * 0.9f, solution.AvailableVolume);
         if (amount <= 0)
+            return;
+
+        var waterReagent = _atmosphereSystem.GetGas(Gas.WaterVapor).Reagent;
+        if (waterReagent is null)
             return;
 
         // adds the condensed water to the chem container
         solution.AddReagent(waterReagent, amount);
 
-        // moles of water vaporto remove after adding the water reagent
-        inlet.Air.AdjustMoles(Gas.WaterVapor, -checkwaterMolesToConvert + (amount.Float() / moleToReagentMultiplier));
-
+        // moles of water vapor to remove after adding the water reagent
+        inlet.Air.AdjustMoles(Gas.WaterVapor, -waterMolesToConvert);
 
         _solution.UpdateChemicals(entity.Comp.Solution.Value);
     }
 
-    public float NumberOfMolesToConvert(ApcPowerReceiverComponent comp, GasMixture mix, float dt)
-    {
-        var hc = _atmosphereSystem.GetHeatCapacity(mix, true);
-        var alpha = 0.8f;
-        var energy = comp.Load * dt;
-        return energy / (alpha * hc);
-    }
 }
