@@ -44,7 +44,10 @@
   - type: AtmosDevice
   - type: PipeRestrictOverlap
   - type: ApcPowerReceiver
-    powerLoad: 10000
+    powerLoad: 50
+  - type: PowerState
+    idlePowerDraw: 50
+    workingPowerDraw: 2500
   - type: NodeContainer
     nodes:
       pipe:
@@ -56,7 +59,7 @@
   - type: SolutionContainerManager
     solutions:
       tank:
-        maxVol: 400
+        maxVol: 500
   - type: MixableSolution
     solution: tank
   - type: DrainableSolution
@@ -65,3 +68,5 @@
     solution: tank
   - type: PowerSwitch
   - type: WaterPurifier
+    gastoCondense: 5 #Water vapor Check Content.Shared\Atmos\Atmospherics.cs
+    ReagentPerSecond: 10
