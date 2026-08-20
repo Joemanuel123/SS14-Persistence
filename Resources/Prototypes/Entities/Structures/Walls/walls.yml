@@ -55,6 +55,17 @@
     resistance: 2
   - type: BlockWeather
   - type: SunShadowCast
+  - type: ExaminableDamage
+    messages: WindowMessages
+  - type: Repairable
+    fuelCost: 15
+    doAfterDelay: 5
+  - type: DamageVisuals
+    thresholds: [5, 10, 20]
+    damageDivisor: 10
+    trackAllDamage: true
+    damageOverlay:
+      sprite: Structures/Windows/cracks.rsi
 
 - type: entity
   abstract: true
@@ -1055,6 +1066,7 @@
     resistance: 5
   - type: Sprite
     sprite: Structures/Walls/shuttle.rsi
+    state: full
   - type: Icon
     sprite: Structures/Walls/shuttle.rsi
     state: full
@@ -1077,7 +1089,7 @@
           4: { state: shuttle_construct-4, visible: true}
           5: { state: shuttle_construct-5, visible: true}
   - type: Reflect
-    reflectProb: 1
+    reflectProb: 0.8
   - type: Fixtures
     fixtures:
       fix1:
@@ -1089,6 +1101,17 @@
         layer:
         - WallLayer
         density: 2000
+  - type: ExaminableDamage
+    messages: WindowMessages
+  - type: Repairable
+    fuelCost: 15
+    doAfterDelay: 10
+  - type: DamageVisuals
+    thresholds: [5, 10, 20, 30]
+    damageDivisor: 10
+    trackAllDamage: true
+    damageOverlay:
+      sprite: _Persistence14/Structures/walls/shuttle_damage.rsi
 
 - type: entity
   parent: BaseWall

@@ -47,10 +47,12 @@
   - type: Appearance
   - type: DamageVisuals
     thresholds: [5, 10, 20]
-    damageDivisor: 20
+    damageDivisor: 2
     trackAllDamage: true
     damageOverlay:
       sprite: Structures/Windows/cracks.rsi
+  - type: ExaminableDamage
+    messages: WindowMessages
   - type: StaticPrice
     price: 150
 
