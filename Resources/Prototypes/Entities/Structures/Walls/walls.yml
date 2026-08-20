@@ -62,10 +62,11 @@
     doAfterDelay: 5
   - type: DamageVisuals
     thresholds: [5, 10, 20]
-    damageDivisor: 10
+    damageDivisor: 3
     trackAllDamage: true
     damageOverlay:
       sprite: Structures/Windows/cracks.rsi
+    color: "#0D0707"
 
 - type: entity
   abstract: true
@@ -1155,6 +1156,7 @@
   - type: IconSmooth
     key: walls
     base: solid
+  - type: Appearance
 
 - type: entity
   parent: WallDiagonalBase
