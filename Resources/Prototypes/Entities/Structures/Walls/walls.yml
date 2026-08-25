@@ -61,7 +61,7 @@
   - type: Repairable
     qualityNeeded: Anchoring
     doAfterDelay: 2
-    damageValue: -5
+    damageValue: -10
   - type: DamageVisuals # Diagonal walls need a diff texture for the damagevisuals
     thresholds: [5, 10, 20, 30, 40, 50, 60]
     damageDivisor: 3
