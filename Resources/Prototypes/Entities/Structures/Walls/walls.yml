@@ -61,7 +61,7 @@
     fuelCost: 15
     doAfterDelay: 5
   - type: DamageVisuals
-    thresholds: [5, 10, 20, 30, 40]
+    thresholds: [5, 10, 20, 30, 40, 50, 60]
     damageDivisor: 3
     trackAllDamage: true
     damageOverlay:
@@ -1057,7 +1057,7 @@
         sound:
           collection: MetalSlam
       - !type:ChangeConstructionNodeBehavior
-        node: reinforcedGirder
+        node: reinforcedGirder # to make the shuttle wall you need to make the girder reinforced
       - !type:DoActsBehavior
         acts: ["Destruction"]
   - type: StaticPrice
@@ -1089,7 +1089,7 @@
           4: { state: shuttle_construct-4, visible: true}
           5: { state: shuttle_construct-5, visible: true}
   - type: Reflect
-    reflectProb: 0.8
+    reflectProb: 1 
   - type: Fixtures
     fixtures:
       fix1:
