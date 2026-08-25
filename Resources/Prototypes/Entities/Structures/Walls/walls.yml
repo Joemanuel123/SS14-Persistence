@@ -55,17 +55,20 @@
     resistance: 2
   - type: BlockWeather
   - type: SunShadowCast
+  # START PERSISTENCE damage base for damagevisuals
   - type: ExaminableDamage
     messages: WindowMessages
   - type: Repairable
-    fuelCost: 15
-    doAfterDelay: 5
-  - type: DamageVisuals
+    qualityNeeded: Anchoring
+    doAfterDelay: 2
+    damageValue: -5
+  - type: DamageVisuals # Diagonal walls need a diff texture for the damagevisuals
     thresholds: [5, 10, 20, 30, 40, 50, 60]
     damageDivisor: 3
     trackAllDamage: true
     damageOverlay:
       sprite: _Persistence14/Structures/walls/wall_damage.rsi
+  # END PERSISTENCE
 
 - type: entity
   abstract: true
@@ -73,6 +76,7 @@
   id: BaseWall
   components:
   - type: Occluder # Breaks on diagonal walls
+  - type: Appearance # Damage visuals for normal walls
 
 - type: entity
   abstract: true
@@ -1102,9 +1106,6 @@
         density: 2000
   - type: ExaminableDamage
     messages: WindowMessages
-  - type: Repairable
-    fuelCost: 15
-    doAfterDelay: 10
   - type: DamageVisuals
     thresholds: [5, 10, 20, 30]
     damageDivisor: 10
@@ -1563,10 +1564,11 @@
   - type: IconSmooth
     key: walls
     base: mining
-  - type: RandomIconSmooth
-    randomStates:
-    - mining
-    - miningB
+# Disabled for PERSISTENCE, RandomIconSmooth breaks when used with damagevisuals
+#  - type: RandomIconSmooth
+#    randomStates:
+#    - mining
+#    - miningB
   - type: Appearance
 
 - type: entity
