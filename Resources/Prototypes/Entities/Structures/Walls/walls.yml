@@ -1066,7 +1066,6 @@
     resistance: 5
   - type: Sprite
     sprite: Structures/Walls/shuttle.rsi
-    state: full
   - type: Icon
     sprite: Structures/Walls/shuttle.rsi
     state: full
@@ -1089,7 +1088,7 @@
           4: { state: shuttle_construct-4, visible: true}
           5: { state: shuttle_construct-5, visible: true}
   - type: Reflect
-    reflectProb: 1 
+    reflectProb: 1
   - type: Fixtures
     fixtures:
       fix1:
