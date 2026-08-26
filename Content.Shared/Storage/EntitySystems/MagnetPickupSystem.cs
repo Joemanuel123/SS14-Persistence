@@ -1,4 +1,5 @@
 using Content.Shared.Inventory;
+using Content.Shared.Item.ItemToggle.Components;
 using Content.Shared.Storage.Components;
 using Content.Shared.Whitelist;
 using Robust.Shared.Physics.Components;
@@ -28,8 +29,15 @@ public sealed class MagnetPickupSystem : EntitySystem
         base.Initialize();
         _physicsQuery = GetEntityQuery<PhysicsComponent>();
         SubscribeLocalEvent<MagnetPickupComponent, MapInitEvent>(OnMagnetMapInit);
+        SubscribeLocalEvent<MagnetPickupComponent, ItemToggledEvent>(OnMagnetToggled);
     }
 
+    private void OnMagnetToggled(
+        Entity<MagnetPickupComponent> entity, ref ItemToggledEvent args)
+    {
+        entity.Comp.Active = args.Activated;
+        Dirty(entity);
+    }
     private void OnMagnetMapInit(EntityUid uid, MagnetPickupComponent component, MapInitEvent args)
     {
         component.NextScan = _timing.CurTime;
@@ -43,6 +51,9 @@ public sealed class MagnetPickupSystem : EntitySystem
 
         while (query.MoveNext(out var uid, out var comp, out var storage, out var xform, out var meta))
         {
+            if (!comp.Active)
+                continue;
+
             if (comp.NextScan > currentTime)
                 continue;
 

@@ -30,6 +30,14 @@
       tags:
       - OreBox
       - OreProcessor
+  - type: ItemToggle
+    soundActivate: &soundActivate
+      collection: sparks
+      params:
+        variation: 0.25
+    soundDeactivate: *soundActivate
+    onActivate: true
+    onUse: false
 
 - type: entity
   parent: OreBag
