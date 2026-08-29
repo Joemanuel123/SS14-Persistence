@@ -1,3 +1,5 @@
+# ported/ inspiration from monolith, original construction bag https://github.com/new-frontiers-14/frontier-station-14/pull/1487
+
 - type: entity
   parent: BaseStorageItem
   id: ConstructionBag
@@ -26,7 +28,6 @@
     areaInsert: true
     whitelist:
       tags:
-      - RodMetal1
       - Sheet
       - CableCoil
       - Ingot
