@@ -47,6 +47,8 @@
     onUse: false
   - type: Appearance
 
+# not making crafting recipe for it, seems a lil OP
+
 - type: entity
   parent: ConstructionBag
   id: ConstructionBagOfHolding

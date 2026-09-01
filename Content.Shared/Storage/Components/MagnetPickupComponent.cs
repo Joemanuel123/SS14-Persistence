@@ -28,5 +28,5 @@ public sealed partial class MagnetPickupComponent : Component
     public float Range = 1f;
 
     [DataField, AutoNetworkedField]
-    public bool Active = false;
+    public bool Active = true;
 }
